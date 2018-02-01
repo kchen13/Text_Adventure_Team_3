@@ -1,12 +1,17 @@
-﻿import items, enemies, actions, world
- 
+﻿import actions
+import enemies
+import items
+import world
+import mod_slow_text
+
 class MapTile:
     def __init__(self, x, y):
         self.x = x
         self.y = y
+
     def intro_text(self):
         raise NotImplementedError()
- 
+
     def modify_player(self, player):
         raise NotImplementedError()
 
@@ -22,43 +27,43 @@ class MapTile:
         if world.tile_exists(self.x, self.y + 1):
             moves.append(actions.MoveSouth())
         return moves
- 
+
     def available_actions(self):
         """Returns all of the available actions in this room."""
         moves = self.adjacent_moves()
         moves.append(actions.ViewInventory())
- 
+
         return moves
 
 
 class StartingRoom(MapTile):
     # override the intro_text method in the superclass
     def intro_text(self):
-        return """
-        You find yourself in a cave with a flickering torch on the wall.
-        You can make out four paths, each equally as dark and foreboding.
-        """
- 
+        return mod_slow_text.slow_text('You find yourself in a cave with a flickering torch on the wall. \nYou can '
+                                       'make out four paths, each equally as dark and foreboding.\n')
+
     def modify_player(self, player):
-        #Room has no action on player
+        # Room has no action on player
         pass
+
 
 class LootRoom(MapTile):
     def __init__(self, x, y, item):
         self.item = item
         super().__init__(x, y)
- 
+
     def add_loot(self, player):
         player.inventory.append(self.item)
- 
+
     def modify_player(self, player):
         self.add_loot(player)
+
 
 class EnemyRoom(MapTile):
     def __init__(self, x, y, enemy):
         self.enemy = enemy
         super().__init__(x, y)
- 
+
     def modify_player(self, the_player):
         if self.enemy.is_alive():
             the_player.hp = the_player.hp - self.enemy.damage
@@ -70,20 +75,22 @@ class EnemyRoom(MapTile):
         else:
             return self.adjacent_moves()
 
+
 class EmptyCavePath(MapTile):
     def intro_text(self):
         return """
         Another unremarkable part of the cave. You must forge onwards.
         """
- 
+
     def modify_player(self, player):
-        #Room has no action on player
+        # Room has no action on player
         pass
- 
+
+
 class GiantSpiderRoom(EnemyRoom):
     def __init__(self, x, y):
         super().__init__(x, y, enemies.GiantSpider())
- 
+
     def intro_text(self):
         if self.enemy.is_alive():
             return """
@@ -93,16 +100,18 @@ class GiantSpiderRoom(EnemyRoom):
             return """
             The corpse of a dead spider rots on the ground.
             """
- 
+
+
 class FindDaggerRoom(LootRoom):
     def __init__(self, x, y):
         super().__init__(x, y, items.Dagger())
- 
+
     def intro_text(self):
         return """
         Your notice something shiny in the corner.
         It's a dagger! You pick it up.
         """
+
 
 class LeaveCaveRoom(MapTile):
     def intro_text(self):
@@ -113,6 +122,6 @@ class LeaveCaveRoom(MapTile):
  
         Victory is yours!
         """
- 
+
     def modify_player(self, player):
         player.victory = True
