@@ -39,8 +39,14 @@ class MapTile:
 class StartingRoom(MapTile):
     # override the intro_text method in the superclass
     def intro_text(self):
-        return mod_slow_text.slow_text('You find yourself in a cave with a flickering torch on the wall. \nYou can '
-                                       'make out four paths, each equally as dark and foreboding.\n')
+        return mod_slow_text.slow_text('The year is 1835 and your player is a well respected doctor in Philadelphia.\n'
+                                       'One day, the temperature drops dramatically in the hospital and the power\n'
+                                       'goes out. You are alone with your latest project. A wide spread disease has\n'
+                                       'spread across the city and you are working on your test subject Frank. You\n'
+                                       'have replaced many of Frank’s body parts with machinery but without\n'
+                                       'electricity, you have to abandon him. The dropping temperature is causing you\n'
+                                       'to look for supplies and search for a warm safe environment. You leave\n'
+                                       'Frank’s room and have a few options where to look for supplies.\n')
 
     def modify_player(self, player):
         # Room has no action on player
