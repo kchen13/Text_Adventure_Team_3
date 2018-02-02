@@ -125,3 +125,12 @@ class LeaveCaveRoom(MapTile):
 
     def modify_player(self, player):
         player.victory = True
+
+
+class DecreaseHealth(MapTile):
+    def intro_text(self):
+        return mod_slow_text.slow_text("This is a test room for decreasing player health")
+
+    def modify_player(self, player):
+        player.hp -= 5
+        print('This room is cold as fuck, you lost 5 health. Your HP is currently:', player.hp)
