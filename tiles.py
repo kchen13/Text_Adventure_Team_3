@@ -3,6 +3,8 @@ import enemies
 import items
 import world
 import mod_slow_text
+import movement_history
+
 
 class MapTile:
     def __init__(self, x, y):
@@ -37,20 +39,44 @@ class MapTile:
 
 
 class StartingRoom(MapTile):
-    # override the intro_text method in the superclass
     def intro_text(self):
-        return mod_slow_text.slow_text('The year is 1835 and your player is a well respected doctor in Philadelphia.\n'
-                                       'One day, the temperature drops dramatically in the hospital and the power\n'
-                                       'goes out. You are alone with your latest project. A wide spread disease has\n'
-                                       'spread across the city and you are working on your test subject Frank. You\n'
-                                       'have replaced many of Frank’s body parts with machinery but without\n'
-                                       'electricity, you have to abandon him. The dropping temperature is causing you\n'
-                                       'to look for supplies and search for a warm safe environment. You leave\n'
-                                       'Frank’s room and have a few options where to look for supplies.\n')
+        # if prints players first visit
+        # else prints player subsequent visits
+        if movement_history.check_history('StartingRoom'):
+            mod_slow_text.slow_text('The year is 1835 and your player is a well respected doctor in Philadelphia.\n'
+                                    'One day, the temperature drops dramatically in the hospital and the power\n'
+                                    'goes out. You are alone with your latest project. A wide spread disease has\n'
+                                    'spread across the city and you are working on your test subject Frank. You\n'
+                                    'have replaced many of Frank’s body parts with machinery but without\n'
+                                    'electricity, you have to abandon him. The dropping temperature is causing you\n'
+                                    'to look for supplies and search for a warm safe environment. You leave\n'
+                                    'Frank’s room and have a few options where to look for supplies.\n')
+            return """"""
+        else:
+            print('Ummm what are you smoking? You started here. Get moving!')
+            return """"""
 
     def modify_player(self, player):
         # Room has no action on player
         pass
+
+
+class DecreaseHealth(MapTile):
+    def intro_text(self):
+        # if prints players first visit
+        # else prints player subsequent visits
+        if movement_history.check_history('DecreaseHealth'):
+            mod_slow_text.slow_text("\nThis is a test room for decreasing player health")
+            return """"""
+        else:
+            mod_slow_text.slow_text("\nThis is a test room for decreasing player health.\nWell, well, well dumb ass "
+                                    "you've been here before.")
+            return """"""
+
+    def modify_player(self, player):
+        player.hp -= 5
+        print('Guess what? This room is still cold as fuck, you lost 5 health. Your HP is currently:', player.hp,
+              '\n')
 
 
 class LootRoom(MapTile):
@@ -133,10 +159,4 @@ class LeaveCaveRoom(MapTile):
         player.victory = True
 
 
-class DecreaseHealth(MapTile):
-    def intro_text(self):
-        return mod_slow_text.slow_text("This is a test room for decreasing player health")
 
-    def modify_player(self, player):
-        player.hp -= 5
-        print('This room is cold as fuck, you lost 5 health. Your HP is currently:', player.hp)

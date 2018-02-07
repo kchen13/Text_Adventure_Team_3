@@ -25,4 +25,7 @@ def play():
 
 
 if __name__ == "__main__":
+    # Clears player history visits
+    open('history.txt', 'w').close()
+    # Starts game
     play()
