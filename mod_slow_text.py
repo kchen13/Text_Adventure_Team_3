@@ -8,7 +8,7 @@ def slow_text(output):
     """
     Method takes in any string and outputs it slowly on the screen.
     Gives a sense of suspense.
-    :param output:
+    :param output:w
     :return: None
     """
     for letter in output:
