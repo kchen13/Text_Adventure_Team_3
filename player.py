@@ -21,8 +21,23 @@ class Player():
         return self.hp > 0  # Greater than zero value then you are still alive
 
     def print_inventory(self):
+        item_number = 1
+        print('*****Inventory*****\n')
         for item in self.inventory:
-            print(item, '\n')
+            print('(', item_number, ')', item, '\n')
+            item_number += 1
+        # User input set to null so while loop initiates
+        user_input = ''
+        while user_input != 'n'.lower() or 'y'.lower():
+            user_input = input('Would you like to drop any items?(y/n)').lower()
+            # todo catch user input for inventory total
+            if user_input == 'n'.lower():
+                break
+            while user_input == 'y'.lower():
+                print('What item would you like to remove?')
+                selection = input('Enter the corresponding number to the item:')
+                del self.inventory[int(selection) - 1]
+                self.print_inventory()
 
     def move(self, dx, dy):
         self.location_x += dx

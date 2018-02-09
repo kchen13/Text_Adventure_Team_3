@@ -8,13 +8,13 @@ class Item():
 
     # __str__ method is used to print the object
     def __str__(self):
-        return "{}\n=====\n{}\nValue: {}\n".format(self.name, self.description, self.value)
+        return '{}: {}\n----------------------\nValue: {}\n'.format(self.name, self.description, self.value)
 
 
 # Extend the Items class
 # Gold class will be a child or subclass of the superclass Item
 class Gold(Item):
-    # __init__ is the contructor method
+    # __init__ is the constructor method
     def __init__(self, amt):
         self.amt = amt  # attribute of the Gold class
         super().__init__(name="Gold",
@@ -28,7 +28,8 @@ class Weapon(Item):
         super().__init__(name, description, value)
 
     def __str__(self):
-        return "{}\n=====\n{}\nValue: {}\nDamage: {}".format(self.name, self.description, self.value, self.damage)
+        return '{}:{}\n----------------------\nValue: {}\nDamage: {}'\
+            .format(self.name, self.description, self.value, self.damage)
 
 
 class Rock(Weapon):
