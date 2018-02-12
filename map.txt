@@ -2,4 +2,4 @@
 		EmptyCavePath	GiantSpiderRoom	
 		EmptyCavePath		
 		EmptyCavePath		
-GiantSpiderRoom	DecreaseHealth	StartingRoom	EmptyCavePath	FindDaggerRoom
+GiantSpiderRoom	ColdRoom	StartingRoom	EmptyCavePath	FindDaggerRoom

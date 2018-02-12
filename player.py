@@ -1,6 +1,7 @@
 ﻿import random
 import items
 import world
+import mod_input_validation
 
 
 class Player():
@@ -26,18 +27,16 @@ class Player():
         for item in self.inventory:
             print('(', item_number, ')', item, '\n')
             item_number += 1
-        # User input set to null so while loop initiates
-        user_input = ''
-        while user_input != 'n'.lower() or 'y'.lower():
-            user_input = input('Would you like to drop any items?(y/n)').lower()
-            # todo catch user input for inventory total
-            if user_input == 'n'.lower():
-                break
-            while user_input == 'y'.lower():
-                print('What item would you like to remove?')
-                selection = input('Enter the corresponding number to the item:')
-                del self.inventory[int(selection) - 1]
-                self.print_inventory()
+        if len(self.inventory) == 0:
+            print('You have no items.')
+            return
+        user_input = mod_input_validation.yes_or_no('Would you like to drop any items?(y/n)')
+        if user_input == 'n':
+            return
+        if user_input == 'y':
+            selection = mod_input_validation.item_drop('What item would you like to remove?', len(self.inventory))
+            del self.inventory[int(selection) - 1]
+            self.print_inventory()
 
     def move(self, dx, dy):
         self.location_x += dx

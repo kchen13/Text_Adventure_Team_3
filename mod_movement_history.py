@@ -1,5 +1,5 @@
 # Author: Kelby Chen
-
+# Purpose: Keeps track of where the player has gone.
 
 def check_history(room_entered):
     """

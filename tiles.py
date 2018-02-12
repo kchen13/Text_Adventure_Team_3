@@ -3,8 +3,8 @@ import enemies
 import items
 import world
 import mod_slow_text
-import vlc
-import time
+import mod_movement_history
+import mod_sound_effects
 
 class MapTile:
     def __init__(self, x, y):
@@ -39,24 +39,39 @@ class MapTile:
 
 
 class StartingRoom(MapTile):
-    sound_file = vlc.MediaPlayer("C:\Users\billy\Desktop\Mysterious-synth-pad-104-bpm.mp3")
-    sound_file.play()
-    time.sleep(10)
-    #sound_file.stop()
-    # override the intro_text method in the superclass
     def intro_text(self):
-        return mod_slow_text.slow_text('The year is 1835 and your player is a well respected doctor in Philadelphia.\n'
-                                       'One day, the temperature drops dramatically in the hospital and the power\n'
-                                       'goes out. You are alone with your latest project. A wide spread disease has\n'
-                                       'spread across the city and you are working on your test subject Frank. You\n'
-                                       'have replaced many of Frank’s body parts with machinery but without\n'
-                                       'electricity, you have to abandon him. The dropping temperature is causing you\n'
-                                       'to look for supplies and search for a warm safe environment. You leave\n'
-                                       'Frank’s room and have a few options where to look for supplies.\n')
+        mod_sound_effects.background()
+        if mod_movement_history.check_history('StartingRoom'):
+            mod_slow_text.slow_text('The year is 1835 and your player is a well respected doctor in Philadelphia.\n'
+                                    'One day, the temperature drops dramatically in the hospital and the power\n'
+                                    'goes out. You are alone with your latest project. A wide spread disease has\n'
+                                    'spread across the city and you are working on your test subject Frank. You\n'
+                                    'have replaced many of Frank’s body parts with machinery but without\n'
+                                    'electricity, you have to abandon him. The dropping temperature is causing you\n'
+                                    'to look for supplies and search for a warm safe environment. You leave\n'
+                                    'Frank’s room and have a few options where to look for supplies.\n')
+            return """"""
+        else:
+            print('Doc, what are you smoking? You started here. Get moving!')
+            return """"""
 
     def modify_player(self, player):
         # Room has no action on player
         pass
+
+
+class ColdRoom(MapTile):
+    def intro_text(self):
+        mod_sound_effects.cold()
+        if mod_movement_history.check_history('ColdRoom'):
+            mod_slow_text.slow_text("\nA cold fierce wind hits your body.")
+        else:
+            mod_slow_text.slow_text("\nA cold fierce wind reminds you that you've been here before.")
+        return """"""
+
+    def modify_player(self, player):
+            player.hp -= 5
+            print('You lost 5 health. Your HP is currently:', player.hp, '\n')
 
 
 class LootRoom(MapTile):
@@ -79,10 +94,6 @@ class EnemyRoom(MapTile):
     def modify_player(self, the_player):
         if self.enemy.is_alive():
             the_player.hp = the_player.hp - self.enemy.damage
-            sound_file = vlc.MediaPlayer("C:\Users\billy\Desktop\Arrow.mp3")
-            sound_file.play()
-            time.sleep(10)
-            # sound_file.stop()
             print("Enemy does {} damage. You have {} HP remaining.".format(self.enemy.damage, the_player.hp))
 
     def available_actions(self):
@@ -93,11 +104,6 @@ class EnemyRoom(MapTile):
 
 
 class EmptyCavePath(MapTile):
-    sound_file = vlc.MediaPlayer("C:\Users\billy\Desktop\Mysterious-synth-pad-104-bpm.mp3")
-    sound_file.play()
-    time.sleep(10)
-
-    # sound_file.stop()
     def intro_text(self):
         return """
         Another unremarkable part of the cave. You must forge onwards.
@@ -113,10 +119,6 @@ class GiantSpiderRoom(EnemyRoom):
         super().__init__(x, y, enemies.GiantSpider())
 
     def intro_text(self):
-        sound_file = vlc.MediaPlayer("C:\Users\billy\Desktop\creepy-background-daniel_simon (1).mp3")
-        sound_file.play()
-        time.sleep(10)
-        # sound_file.stop()
         if self.enemy.is_alive():
             return """
             A giant spider jumps down from its web in front of you!
@@ -131,11 +133,6 @@ class FindDaggerRoom(LootRoom):
     def __init__(self, x, y):
         super().__init__(x, y, items.Dagger())
 
-    sound_file = vlc.MediaPlayer("C:\Users\billy\Desktop\412249_SOUNDDOGS__kn.mp3")
-    sound_file.play()
-    time.sleep(10)
-
-    # sound_file.stop()
     def intro_text(self):
         return """
         Your notice something shiny in the corner.
@@ -145,11 +142,6 @@ class FindDaggerRoom(LootRoom):
 
 class LeaveCaveRoom(MapTile):
     def intro_text(self):
-        sound_file = vlc.MediaPlayer("C:\Users\billy\Desktop\Heavenly Choir Sound Effect.mp3")
-        sound_file.play()
-        time.sleep(10)
-
-        # sound_file.stop()
         return """
         You see a bright light in the distance...
         ... it grows as you get closer! It's sunlight!
@@ -162,10 +154,4 @@ class LeaveCaveRoom(MapTile):
         player.victory = True
 
 
-class DecreaseHealth(MapTile):
-    def intro_text(self):
-        return mod_slow_text.slow_text("This is a test room for decreasing player health")
 
-    def modify_player(self, player):
-        player.hp -= 5
-        print('This room is very cold, you lost 5 health. Your HP is currently:', player.hp)
