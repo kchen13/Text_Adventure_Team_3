@@ -22,7 +22,7 @@ def yes_or_no(prompt):
     return value.lower()
 
 
-def item_drop(prompt, max_item):
+def item_select(prompt, max_item):
     while True:
         try:
             value = int(input(prompt))

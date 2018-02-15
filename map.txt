@@ -1,5 +1,5 @@
-			LeaveCaveRoom	
-		EmptyCavePath	GiantSpiderRoom	
-		EmptyCavePath		
-		EmptyCavePath		
-GiantSpiderRoom	ColdRoom	StartingRoom	EmptyCavePath	FindDaggerRoom
+			LeaveCaveRoom
+		ColdRoom	GiantSpiderRoom
+		ColdRoom		
+		ColdRoom		
+GiantSpiderRoom	SupplyRoom01	ColdRoom	StartingRoom	ColdRoom

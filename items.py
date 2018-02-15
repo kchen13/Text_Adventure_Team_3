@@ -1,56 +1,46 @@
 ﻿# Base class for all items
 class Item():
-    # __init__ is the contructor method
-    def __init__(self, name, description, value):
+    # __init__ is the constructor method
+    def __init__(self, name, description):
         self.name = name  # attribute of the Item class and any subclasses
         self.description = description  # attribute of the Item class and any subclasses
-        self.value = value  # attribute of the Item class and any subclasses
 
     # __str__ method is used to print the object
     def __str__(self):
-        return '{}: {}\n----------------------\nValue: {}\n'.format(self.name, self.description, self.value)
+        return '{}: {}\n----------------------\n'.format(self.name, self.description)
 
 
 # Extend the Items class
-# Gold class will be a child or subclass of the superclass Item
-class Gold(Item):
-    # __init__ is the constructor method
-    def __init__(self, amt):
-        self.amt = amt  # attribute of the Gold class
-        super().__init__(name="Gold",
-                         description="A round coin with {} stamped on the front.".format(str(self.amt)),
-                         value=self.amt)
+class Armor(Item):
+    def __init__(self, name, description, hp):
+        self.hp = hp
+        super().__init__(name, description)
+
+    def __str__(self):
+        return '{}: {}\n----------------------\nProtection: {}' \
+            .format(self.name, self.description, self.hp)
 
 
 class Weapon(Item):
-    def __init__(self, name, description, value, damage):
+    def __init__(self, name, description, damage):
         self.damage = damage
-        super().__init__(name, description, value)
+        super().__init__(name, description)
 
     def __str__(self):
-        return '{}:{}\n----------------------\nValue: {}\nDamage: {}'\
-            .format(self.name, self.description, self.value, self.damage)
+        return '{}: {}\n----------------------\nDamage: {}' \
+            .format(self.name, self.description, self.damage)
 
 
-class Rock(Weapon):
+class DoctorsCoat(Armor):
+    # __init__ is the constructor method
     def __init__(self):
-        super().__init__(name="Rock",
-                         description="A fist-sized rock, suitable for bludgeoning.",
-                         value=0,
+        super().__init__(name="Doctors Coat",
+                         description="Not much linen but a layer is a layer.",
+                         hp=20)
+
+
+class Knife(Weapon):
+    def __init__(self):
+        super().__init__(name="Knife",
+                         description="A 3 inch rusted blade",
                          damage=5)
-
-
-class Dagger(Weapon):
-    def __init__(self):
-        super().__init__(name="Dagger",
-                         description="A small dagger with some rust. Somewhat more dangerous than a rock.",
-                         value=10,
-                         damage=10)
-
-
-class Pillow(Weapon):
-    def __init__(self):
-        super().__init__(name="Pillow",
-                         description="A pillow super soft.",
-                         value=1,
-                         damage=1)

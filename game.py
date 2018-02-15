@@ -10,8 +10,9 @@ def play():
     print(room.intro_text())
     while player.is_alive() and not player.victory:
         room = world.tile_exists(player.location_x, player.location_y)
-        room.modify_player(player)
-        # Check again since the room could have changed the player's state
+        # Check to see if player moved before modding player
+        if player.last_position(player.location_x, player.location_y):
+            room.modify_player(player)
         if player.is_alive() and not player.victory:
             print("Choose an action:\n")
             available_actions = room.available_actions()

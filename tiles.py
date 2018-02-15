@@ -6,6 +6,7 @@ import mod_slow_text
 import mod_movement_history
 import mod_sound_effects
 
+
 class MapTile:
     def __init__(self, x, y):
         self.x = x
@@ -14,11 +15,8 @@ class MapTile:
     def intro_text(self):
         raise NotImplementedError()
 
-    def modify_player(self, player):
-        raise NotImplementedError()
-
     def adjacent_moves(self):
-        """Returns all move actions for adjacent tiles."""
+        # Returns available movements
         moves = []
         if world.tile_exists(self.x + 1, self.y):
             moves.append(actions.MoveEast())
@@ -31,29 +29,36 @@ class MapTile:
         return moves
 
     def available_actions(self):
-        """Returns all of the available actions in this room."""
+        # Returns available actions
         moves = self.adjacent_moves()
+        moves.insert(0, actions.ViewRoomInventory())
+        moves.append(actions.PlayerStats())
         moves.append(actions.ViewInventory())
-
         return moves
 
 
 class StartingRoom(MapTile):
+    room_inventory = []
+
     def intro_text(self):
         mod_sound_effects.background()
         if mod_movement_history.check_history('StartingRoom'):
-            mod_slow_text.slow_text('The year is 1835 and your player is a well respected doctor in Philadelphia.\n'
+            mod_slow_text.slow_text('\n'
+                                    '                ************************************\n'
+                                    '                *            Hypothermia           *\n'
+                                    '                ************************************\n'
+                                    'The year is 1835 and your player is a well respected doctor in Philadelphia.\n'
                                     'One day, the temperature drops dramatically in the hospital and the power\n'
                                     'goes out. You are alone with your latest project. A wide spread disease has\n'
                                     'spread across the city and you are working on your test subject Frank. You\n'
                                     'have replaced many of Frank’s body parts with machinery but without\n'
-                                    'electricity, you have to abandon him. The dropping temperature is causing you\n'
-                                    'to look for supplies and search for a warm safe environment. You leave\n'
-                                    'Frank’s room and have a few options where to look for supplies.\n')
-            return """"""
+                                    'electricity, you have to abandon him.\n'
+                                    '\nThe dropping temperature is causing you to look for supplies and search for a\n'
+                                    'warm safe environment. You leave Frank’s room and have a few options where to\n'
+                                    'look for supplies.\n')
         else:
             print('Doc, what are you smoking? You started here. Get moving!')
-            return """"""
+        return """"""
 
     def modify_player(self, player):
         # Room has no action on player
@@ -61,6 +66,8 @@ class StartingRoom(MapTile):
 
 
 class ColdRoom(MapTile):
+    room_inventory = []
+
     def intro_text(self):
         mod_sound_effects.cold()
         if mod_movement_history.check_history('ColdRoom'):
@@ -70,20 +77,25 @@ class ColdRoom(MapTile):
         return """"""
 
     def modify_player(self, player):
-            player.hp -= 5
-            print('You lost 5 health. Your HP is currently:', player.hp, '\n')
+        # Armor HP percentage subtracted from damage taken
+        player.hp -= 5 - (player.armor * 0.1)
+        print('You lost 5 health. Your HP is currently:', player.hp, '\n')
 
 
-class LootRoom(MapTile):
-    def __init__(self, x, y, item):
-        self.item = item
-        super().__init__(x, y)
+class SupplyRoom01(MapTile):
+    room_inventory = [items.DoctorsCoat()]
 
-    def add_loot(self, player):
-        player.inventory.append(self.item)
+    def intro_text(self):
+        mod_sound_effects.supply()
+        if mod_movement_history.check_history('SupplyRoom1'):
+            mod_slow_text.slow_text("\nIt's some sort of supplies room. Searching may be of your best interest.")
+        else:
+            mod_slow_text.slow_text("\nThis is that supply room you were in earlier.")
+        return """"""
 
     def modify_player(self, player):
-        self.add_loot(player)
+        player.hp -= 2 - (player.armor * 0.1)
+        print('Your body temperature is dropping. You lost 2 health. Your HP is currently:', player.hp, '\n')
 
 
 class EnemyRoom(MapTile):
@@ -103,17 +115,6 @@ class EnemyRoom(MapTile):
             return self.adjacent_moves()
 
 
-class EmptyCavePath(MapTile):
-    def intro_text(self):
-        return """
-        Another unremarkable part of the cave. You must forge onwards.
-        """
-
-    def modify_player(self, player):
-        # Room has no action on player
-        pass
-
-
 class GiantSpiderRoom(EnemyRoom):
     def __init__(self, x, y):
         super().__init__(x, y, enemies.GiantSpider())
@@ -129,17 +130,6 @@ class GiantSpiderRoom(EnemyRoom):
             """
 
 
-class FindDaggerRoom(LootRoom):
-    def __init__(self, x, y):
-        super().__init__(x, y, items.Dagger())
-
-    def intro_text(self):
-        return """
-        Your notice something shiny in the corner.
-        It's a dagger! You pick it up.
-        """
-
-
 class LeaveCaveRoom(MapTile):
     def intro_text(self):
         return """
@@ -152,6 +142,3 @@ class LeaveCaveRoom(MapTile):
 
     def modify_player(self, player):
         player.victory = True
-
-
-
