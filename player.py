@@ -55,9 +55,9 @@ class Player():
         if user_input == 'n':
             return
         if user_input == 'y':
-            selection = mod_input_validation.item_select('Select item to take:', len(self.inventory))
-            # Pick up item from current room
             room = world.tile_exists(self.location_x, self.location_y)
+            selection = mod_input_validation.item_select('Select item to take:', len(room.room_inventory))
+            # Pick up item from current room
             loot = room.room_inventory[int(selection) - 1]
             self.inventory.append(loot)
             # Removes from room inventory
