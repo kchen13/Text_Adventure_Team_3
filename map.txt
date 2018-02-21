@@ -1,5 +1,6 @@
-			LeaveCaveRoom
-		ColdRoom	GiantSpiderRoom
-		ColdRoom		
-		ColdRoom		
-GiantSpiderRoom	SupplyRoom01	ColdRoom	StartingRoom	ColdRoom
+	LeaveCaveRoom
+	ColdRoom	GiantSpiderRoom
+	ColdRoom
+	ColdRoom
+SupplyRoom01	StartingRoom	SupplyRoom01
+	MysteriousRoom
