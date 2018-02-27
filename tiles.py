@@ -72,6 +72,26 @@ class StartingRoom(MapTile):
         pass
 
 
+class EnemyRoom(MapTile):
+    def intro_text(self):
+        pass
+
+    def __init__(self, x, y, enemy):
+        self.enemy = enemy
+        super().__init__(x, y)
+
+    def modify_player(self, the_player):
+        if self.enemy.is_alive():
+            the_player.hp = the_player.hp - self.enemy.damage
+            print("Enemy does {} damage. You have {} HP remaining.".format(self.enemy.damage, the_player.hp))
+
+    def available_actions(self):
+        if self.enemy.is_alive():
+            return [actions.Flee(tile=self), actions.Attack(enemy=self.enemy)]
+        else:
+            return self.adjacent_moves()
+
+
 class ColdRoom(MapTile):
     room_id = 'Cold Room'
     room_inventory = []
@@ -107,24 +127,9 @@ class SupplyRoom01(MapTile):
         print('Your body temperature is dropping. You lost 2 health. Your HP is currently:', player.hp, '\n')
 
 
-class EnemyRoom(MapTile):
-    def __init__(self, x, y, enemy):
-        self.enemy = enemy
-        super().__init__(x, y)
-
-    def modify_player(self, the_player):
-        if self.enemy.is_alive():
-            the_player.hp = the_player.hp - self.enemy.damage
-            print("Enemy does {} damage. You have {} HP remaining.".format(self.enemy.damage, the_player.hp))
-
-    def available_actions(self):
-        if self.enemy.is_alive():
-            return [actions.Flee(tile=self), actions.Attack(enemy=self.enemy)]
-        else:
-            return self.adjacent_moves()
-
-
 class GiantSpiderRoom(EnemyRoom):
+    room_id = 'Something strange sounds this way'
+
     def __init__(self, x, y):
         super().__init__(x, y, enemies.GiantSpider())
 

@@ -33,9 +33,9 @@ def item_select(prompt, max_item):
         try:
             value = int(input(prompt))
         except ValueError:
-            print('You have to enter a number from 1 to ', max_item)
+            print('You have to enter a number from 1 to ', max_item, '(0 to exit)')
             continue
-        if not 1 <= value <= max_item:
+        if not 0 <= value <= max_item:
             print('Incorrect input, please try again.')
             continue
         else:

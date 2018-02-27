@@ -31,10 +31,21 @@ class Weapon(Item):
             .format(self.name, self.description, self.damage)
 
 
-class FirstAid(Item):
+class Health(Item):
+    def __init__(self, name, description, health):
+        self.health = health
+        super().__init__(name, description)
+
+    def __str__(self):
+        return '{}: {}\n----------------------\nHealth Regeneration: {}' \
+            .format(self.name, self.description, self.health)
+
+
+class FirstAid(Health):
     def __init__(self):
         super().__init__(name="First Aid Kit",
-                         description="Life saving health boost. Regenerates 20 HP.")
+                         description="Life saving health boost.",
+                         health=20)
 
 
 class DoctorsCoat(Armor):

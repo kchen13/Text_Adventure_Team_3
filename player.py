@@ -7,7 +7,7 @@ import mod_input_validation
 class Player():
     def __init__(self):
         # Inventory on startup
-        self.inventory = [items.Knife()]
+        self.inventory = [items.Knife(), items.FirstAid(), items.DoctorsCoat()]
         # Health Points
         self.hp = 100
         # Armor Points
@@ -56,13 +56,35 @@ class Player():
             return
         if user_input == 'y':
             room = world.tile_exists(self.location_x, self.location_y)
-            selection = mod_input_validation.item_select('Select item to take:', len(room.room_inventory))
-            # Pick up item from current room
-            loot = room.room_inventory[int(selection) - 1]
-            self.inventory.append(loot)
-            # Removes from room inventory
-            del room.room_inventory[int(selection) - 1]
+            selection = mod_input_validation.item_select('Select item to take (0 to exit):', len(room.room_inventory))
+            if selection == 0:
+                return
+            else:
+                # Pick up item from current room
+                loot = room.room_inventory[int(selection) - 1]
+                print('You picked up a', loot)
+                self.inventory.append(loot)
+                # Removes from room inventory
+                del room.room_inventory[int(selection) - 1]
         self.room_inventory()
+
+    def inventory_actions(self):
+        self.print_inventory()
+        # Prints inventory actions and executes them
+        print('---------------------------')
+        print('Choose an action:')
+        print('u: Use item(s)')
+        print('d: Drop item(s)')
+        print('x: Exit inventory menu')
+        # Prompts user and validates input
+        user_input = mod_input_validation.inventory_action('Action:')
+        # Runs user requested actions
+        if user_input == 'u':
+            self.use_inventory()
+        if user_input == 'd':
+            self.drop_inventory()
+        if user_input == 'x':
+            return
 
     def print_inventory(self):
         # Prints inventory menu
@@ -75,35 +97,30 @@ class Player():
         for item in self.inventory:
             print('(', item_number, ')', item, '\n')
             item_number += 1
-        self.inventory_actions()
-
-    def inventory_actions(self):
-        # Prints inventory actions and executes them
-        print('---------------------------')
-        print('Choose an action:')
-        print('u: Use item(s)')
-        print('d: Drop item(s)')
-        print('x: Exit inventory menu')
-        # Prompts user and validates input
-        user_input = mod_input_validation.inventory_action('Action:')
-        # Runs user requested actions
-        if user_input == 'u':
-            self.use_iventory()
-        if user_input == 'd':
-            self.drop_inventory()
-        if user_input == 'x':
-            return
 
     def use_inventory(self):
         # Use item prompts and validation
         self.print_inventory()
-        selection = mod_input_validation.item_select('Select item to remove:', len(self.inventory))
-        # Use item and remove from inventory
+        selection = mod_input_validation.item_select('Select item to use (0 to exit):', len(self.inventory))
+        use = self.inventory[int(selection) - 1]
+        # Returns to menu
+        if use == 0:
+            return
+        # Add health, delete from inventory
+        if use.name == 'First Aid Kit':
+            self.add_health(20)
+            del self.inventory[int(selection) - 1]
+        # Does nothing
+        else:
+            print("Not usable in this instance.")
 
     def drop_inventory(self):
         # Drop item prompts and validation
         self.print_inventory()
-        selection = mod_input_validation.item_select('Select item to remove:', len(self.inventory))
+        selection = mod_input_validation.item_select('Select item to remove (0 to exit):', len(self.inventory))
+        # Returns to menu if zero
+        if selection == 0:
+            return
         # Drops item into current room
         room = world.tile_exists(self.location_x, self.location_y)
         drop = self.inventory[int(selection) - 1]
@@ -116,6 +133,13 @@ class Player():
         print('*****    Player Statistics    *****')
         print('Health: ', self.hp)
         print('Armor: ', self.armor, '\n')
+
+    def add_health(self, hp2add):
+        # Adds health not to exceed 100
+        self.hp += hp2add
+        if self.hp > 100:
+            self.hp = 100
+        print('Player Health is now:', self.hp)
 
     def move(self, dx, dy):
         self.location_x += dx

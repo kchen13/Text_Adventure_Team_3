@@ -41,7 +41,7 @@ class ViewRoomInventory(Action):
 class ViewInventory(Action):
     # Inventory Menu
     def __init__(self):
-        super().__init__(method=Player.print_inventory, name='View Inventory', hotkey='i')
+        super().__init__(method=Player.inventory_actions, name='View Inventory', hotkey='i')
 
 
 class PlayerStats(Action):
