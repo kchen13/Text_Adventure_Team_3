@@ -13,23 +13,23 @@ class Action():
 
 
 class MoveNorth(Action):
-    def __init__(self):
-        super().__init__(method=Player.move_north, name='Move North', hotkey='n')
+    def __init__(self, tile):
+        super().__init__(method=Player.move_north, name='Move North (' + tile + ')', hotkey='n')
 
 
 class MoveSouth(Action):
-    def __init__(self):
-        super().__init__(method=Player.move_south, name='Move South', hotkey='s')
+    def __init__(self, tile):
+        super().__init__(method=Player.move_south, name='Move South (' + tile + ')', hotkey='s')
 
 
 class MoveEast(Action):
-    def __init__(self):
-        super().__init__(method=Player.move_east, name='Move East', hotkey='e')
+    def __init__(self, tile):
+        super().__init__(method=Player.move_east, name='Move East (' + tile + ')', hotkey='e')
 
 
 class MoveWest(Action):
-    def __init__(self):
-        super().__init__(method=Player.move_west, name='Move West', hotkey='w')
+    def __init__(self, tile):
+        super().__init__(method=Player.move_west, name='Move West (' + tile + ')', hotkey='w')
 
 
 class ViewRoomInventory(Action):

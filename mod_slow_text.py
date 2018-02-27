@@ -16,4 +16,3 @@ def slow_text(output):
         sys.stdout.write(letter)
         sys.stdout.flush()
         time.sleep(0.000)
-

@@ -19,13 +19,19 @@ class MapTile:
         # Returns available movements
         moves = []
         if world.tile_exists(self.x + 1, self.y):
-            moves.append(actions.MoveEast())
+            # Gets the tile's room_id
+            rm_id = world.tile_exists(self.x + 1, self.y).room_id
+            # Parameter sent so the room_id can be added to the name of the Action
+            moves.append(actions.MoveEast(rm_id))
         if world.tile_exists(self.x - 1, self.y):
-            moves.append(actions.MoveWest())
+            rm_id = world.tile_exists(self.x - 1, self.y).room_id
+            moves.append(actions.MoveWest(rm_id))
         if world.tile_exists(self.x, self.y - 1):
-            moves.append(actions.MoveNorth())
+            rm_id = world.tile_exists(self.x, self.y - 1).room_id
+            moves.append(actions.MoveNorth(rm_id))
         if world.tile_exists(self.x, self.y + 1):
-            moves.append(actions.MoveSouth())
+            rm_id = world.tile_exists(self.x, self.y - 1).room_id
+            moves.append(actions.MoveSouth(rm_id))
         return moves
 
     def available_actions(self):
@@ -38,6 +44,7 @@ class MapTile:
 
 
 class StartingRoom(MapTile):
+    room_id = 'Starting Room'
     room_inventory = []
 
     def intro_text(self):
@@ -66,6 +73,7 @@ class StartingRoom(MapTile):
 
 
 class ColdRoom(MapTile):
+    room_id = 'Cold Room'
     room_inventory = []
 
     def intro_text(self):
@@ -83,6 +91,7 @@ class ColdRoom(MapTile):
 
 
 class SupplyRoom01(MapTile):
+    room_id = 'Supply Room'
     room_inventory = [items.DoctorsCoat()]
 
     def intro_text(self):
