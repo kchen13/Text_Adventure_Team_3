@@ -3,11 +3,11 @@
 
 
 def yes_or_no(prompt):
-    '''
+    """
     Tests for yes and no inputs
-    :param prompt: Question to be asked
+    :param prompt: user input
     :return: y or n
-    '''
+    """
     while True:
         try:
             value = input(prompt)
@@ -23,6 +23,12 @@ def yes_or_no(prompt):
 
 
 def item_select(prompt, max_item):
+    """
+    Tests for integer and range for item selection
+    :param prompt: user input
+    :param max_item: list length
+    :return: index of item + 1
+    """
     while True:
         try:
             value = int(input(prompt))
@@ -35,3 +41,18 @@ def item_select(prompt, max_item):
         else:
             break
     return value
+
+
+def inventory_action(prompt):
+    while True:
+        try:
+            value = input(prompt)
+        except ValueError:
+            print('You have to enter "u", "d" or "x", please try again.')
+            continue
+        if value.lower() not in ('u', 'd', 'x'):
+            print('Incorrect input, please try again.')
+            continue
+        else:
+            break
+    return value.lower()

@@ -75,18 +75,41 @@ class Player():
         for item in self.inventory:
             print('(', item_number, ')', item, '\n')
             item_number += 1
-        # Drop item prompts and validations
-        user_input = mod_input_validation.yes_or_no('Would you like to drop any items?(y/n)')
-        if user_input == 'n':
+        self.inventory_actions()
+
+    def inventory_actions(self):
+        # Prints inventory actions and executes them
+        print('---------------------------')
+        print('Choose an action:')
+        print('u: Use item(s)')
+        print('d: Drop item(s)')
+        print('x: Exit inventory menu')
+        # Prompts user and validates input
+        user_input = mod_input_validation.inventory_action('Action:')
+        # Runs user requested actions
+        if user_input == 'u':
+            self.use_iventory()
+        if user_input == 'd':
+            self.drop_inventory()
+        if user_input == 'x':
             return
-        if user_input == 'y':
-            selection = mod_input_validation.item_select('Select item to remove:', len(self.inventory))
-            # Drops item into current room
-            room = world.tile_exists(self.location_x, self.location_y)
-            drop = self.inventory[int(selection) - 1]
-            room.room_inventory.append(drop)
-            # Removes from player inventory
-            del self.inventory[int(selection) - 1]
+
+    def use_inventory(self):
+        # Use item prompts and validation
+        self.print_inventory()
+        selection = mod_input_validation.item_select('Select item to remove:', len(self.inventory))
+        # Use item and remove from inventory
+
+    def drop_inventory(self):
+        # Drop item prompts and validation
+        self.print_inventory()
+        selection = mod_input_validation.item_select('Select item to remove:', len(self.inventory))
+        # Drops item into current room
+        room = world.tile_exists(self.location_x, self.location_y)
+        drop = self.inventory[int(selection) - 1]
+        room.room_inventory.append(drop)
+        # Removes from player inventory
+        del self.inventory[int(selection) - 1]
 
     def player_stats(self):
         # Prints health and armor

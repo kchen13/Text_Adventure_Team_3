@@ -31,6 +31,12 @@ class Weapon(Item):
             .format(self.name, self.description, self.damage)
 
 
+class FirstAid(Item):
+    def __init__(self):
+        super().__init__(name="First Aid Kit",
+                         description="Life saving health boost. Regenerates 20 HP.")
+
+
 class DoctorsCoat(Armor):
     # __init__ is the constructor method
     def __init__(self):
