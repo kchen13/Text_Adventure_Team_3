@@ -1,4 +1,7 @@
 ﻿# Base class for all items
+import mod_sound_effects
+
+
 class Item():
     # __init__ is the constructor method
     def __init__(self, name, description):
@@ -48,6 +51,13 @@ class FirstAid(Health):
                          health=20)
 
 
+class Bandages(Health):
+    def __init__(self):
+        super().__init__(name="Bandages",
+                         description="Great for nicks and scratches.",
+                         health=10)
+
+
 class DoctorsCoat(Armor):
     # __init__ is the constructor method
     def __init__(self):
@@ -61,3 +71,7 @@ class Knife(Weapon):
         super().__init__(name="Knife",
                          description="A 3 inch rusted blade",
                          damage=5)
+
+    @staticmethod
+    def sound_effect():
+        mod_sound_effects.knife()

@@ -30,7 +30,7 @@ class MapTile:
             rm_id = world.tile_exists(self.x, self.y - 1).room_id
             moves.append(actions.MoveNorth(rm_id))
         if world.tile_exists(self.x, self.y + 1):
-            rm_id = world.tile_exists(self.x, self.y - 1).room_id
+            rm_id = world.tile_exists(self.x, self.y + 1).room_id
             moves.append(actions.MoveSouth(rm_id))
         return moves
 
@@ -43,13 +43,37 @@ class MapTile:
         return moves
 
 
+class EnemyRoom(MapTile):
+    def intro_text(self):
+        pass
+
+    def __init__(self, x, y, enemy):
+        self.enemy = enemy
+        super().__init__(x, y)
+
+    def modify_player(self, the_player):
+        if self.enemy.is_alive():
+            the_player.hp = the_player.hp - self.enemy.damage
+            print('The {} does {} damage.\nYou have {} HP remaining.'.
+                  format(self.enemy.name, self.enemy.damage, the_player.hp))
+
+    def available_actions(self):
+        if self.enemy.is_alive():
+            moves = [actions.Flee(tile=self), actions.Attack(enemy=self.enemy), actions.PlayerStats(),
+                     actions.ViewInventory()]
+            return moves
+        else:
+            return MapTile.available_actions(self)
+
+
 class StartingRoom(MapTile):
-    room_id = 'Starting Room'
+    room_id = 'Hospital Lobby'
     room_inventory = []
 
     def intro_text(self):
+        coordinates = str(self.x) + str(self.y)
         mod_sound_effects.background()
-        if mod_movement_history.check_history('StartingRoom'):
+        if mod_movement_history.check_history(coordinates):
             mod_slow_text.slow_text('\n'
                                     '                ************************************\n'
                                     '                *            Hypothermia           *\n'
@@ -72,79 +96,65 @@ class StartingRoom(MapTile):
         pass
 
 
-class EnemyRoom(MapTile):
-    def intro_text(self):
-        pass
-
-    def __init__(self, x, y, enemy):
-        self.enemy = enemy
-        super().__init__(x, y)
-
-    def modify_player(self, the_player):
-        if self.enemy.is_alive():
-            the_player.hp = the_player.hp - self.enemy.damage
-            print("Enemy does {} damage. You have {} HP remaining.".format(self.enemy.damage, the_player.hp))
-
-    def available_actions(self):
-        if self.enemy.is_alive():
-            return [actions.Flee(tile=self), actions.Attack(enemy=self.enemy)]
-        else:
-            return self.adjacent_moves()
-
-
 class ColdRoom(MapTile):
-    room_id = 'Cold Room'
+    room_id = 'seems colder this way.'
     room_inventory = []
 
     def intro_text(self):
+        coordinates = str(self.x) + str(self.y)
         mod_sound_effects.cold()
-        if mod_movement_history.check_history('ColdRoom'):
+        if mod_movement_history.check_history(coordinates):
             mod_slow_text.slow_text("\nA cold fierce wind hits your body.")
         else:
             mod_slow_text.slow_text("\nA cold fierce wind reminds you that you've been here before.")
         return """"""
 
-    def modify_player(self, player):
+    @staticmethod
+    def modify_player(player):
         # Armor HP percentage subtracted from damage taken
         player.hp -= 5 - (player.armor * 0.1)
         print('You lost 5 health. Your HP is currently:', player.hp, '\n')
 
 
 class SupplyRoom01(MapTile):
-    room_id = 'Supply Room'
+    room_id = 'looks like there could be supplies in this room.'
     room_inventory = [items.DoctorsCoat()]
 
     def intro_text(self):
+        coordinates = str(self.x) + str(self.y)
         mod_sound_effects.supply()
-        if mod_movement_history.check_history('SupplyRoom1'):
+        if mod_movement_history.check_history(coordinates):
             mod_slow_text.slow_text("\nIt's some sort of supplies room. Searching may be of your best interest.")
         else:
             mod_slow_text.slow_text("\nThis is that supply room you were in earlier.")
         return """"""
 
-    def modify_player(self, player):
+    @staticmethod
+    def modify_player(player):
         player.hp -= 2 - (player.armor * 0.1)
         print('Your body temperature is dropping. You lost 2 health. Your HP is currently:', player.hp, '\n')
 
 
-class GiantSpiderRoom(EnemyRoom):
-    room_id = 'Something strange sounds this way'
+class GhoulRoom01(EnemyRoom):
+    room_id = 'is... that a sound???'
+    room_inventory = [items.Bandages()]
 
     def __init__(self, x, y):
-        super().__init__(x, y, enemies.GiantSpider())
+        super().__init__(x, y, enemies.Ghoul())
 
     def intro_text(self):
         if self.enemy.is_alive():
-            return """
-            A giant spider jumps down from its web in front of you!
-            """
+            mod_sound_effects.ghoul01()
+            mod_slow_text.slow_text("\nHoly crap, it's a God damn Ghoul!"
+                                    "\nGhoul HP:" + str(self.enemy.hp))
         else:
-            return """
-            The corpse of a dead spider rots on the ground.
-            """
+            mod_slow_text.slow_text("\nHa! That ghoul looks like Tom Brady after Super Bowl LII.")
+        return """"""
 
 
-class LeaveCaveRoom(MapTile):
+class WinningRoom(MapTile):
+    room_id = 'is that warmth?'
+
     def intro_text(self):
         return """
         You see a bright light in the distance...
@@ -154,5 +164,6 @@ class LeaveCaveRoom(MapTile):
         Victory is yours!
         """
 
-    def modify_player(self, player):
+    @staticmethod
+    def modify_player(player):
         player.victory = True

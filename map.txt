@@ -1,5 +1,5 @@
-			LeaveCaveRoom
-		ColdRoom	GiantSpiderRoom
+			WinningRoom
+		ColdRoom	GhoulRoom01
 		ColdRoom		
-		ColdRoom		
-GiantSpiderRoom	SupplyRoom01	ColdRoom	StartingRoom	ColdRoom
+		GhoulRoom01		
+GhoulRoom01	SupplyRoom01	ColdRoom	StartingRoom	ColdRoom

@@ -4,6 +4,8 @@
 import sys
 import time
 
+import mod_sound_effects
+
 
 def slow_text(output):
     """
@@ -15,4 +17,5 @@ def slow_text(output):
     for letter in output:
         sys.stdout.write(letter)
         sys.stdout.flush()
-        time.sleep(0.000)
+        time.sleep(0.000)  # Ideal speed 0.015
+        mod_sound_effects.typing()

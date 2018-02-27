@@ -14,22 +14,22 @@ class Action():
 
 class MoveNorth(Action):
     def __init__(self, rm_id):
-        super().__init__(method=Player.move_north, name='Move North (' + rm_id + ')', hotkey='n')
+        super().__init__(method=Player.move_north, name='Move North, ' + rm_id, hotkey='n')
 
 
 class MoveSouth(Action):
     def __init__(self, rm_id):
-        super().__init__(method=Player.move_south, name='Move South (' + rm_id + ')', hotkey='s')
+        super().__init__(method=Player.move_south, name='Move South, ' + rm_id, hotkey='s')
 
 
 class MoveEast(Action):
     def __init__(self, rm_id):
-        super().__init__(method=Player.move_east, name='Move East (' + rm_id + ')', hotkey='e')
+        super().__init__(method=Player.move_east, name='Move East, ' + rm_id, hotkey='e')
 
 
 class MoveWest(Action):
     def __init__(self, rm_id):
-        super().__init__(method=Player.move_west, name='Move West (' + rm_id + ')', hotkey='w')
+        super().__init__(method=Player.move_west, name='Move West, ' + rm_id, hotkey='w')
 
 
 class ViewRoomInventory(Action):
@@ -48,6 +48,9 @@ class PlayerStats(Action):
     # Player statistics menu
     def __init__(self):
         super().__init__(method=Player.player_stats, name='Player Statistics', hotkey='p')
+
+    def __str__(self):
+        return "\n{}: {}".format(self.hotkey, self.name)
 
 
 class Attack(Action):

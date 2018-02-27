@@ -8,16 +8,6 @@
         return self.hp > 0
 
 
-class GiantSpider(Enemy):
+class Ghoul(Enemy):
     def __init__(self):
-        super().__init__(name="Giant Spider", hp=10, damage=2)
-
-
-class Ogre(Enemy):
-    def __init__(self):
-        super().__init__(name="Ogre", hp=30, damage=15)
-
-
-class Dog(Enemy):
-    def __init__(self):
-        super().__init__(name="Dog", hp=20, damage=10)
+        super().__init__(name="Ghoul", hp=10, damage=5)

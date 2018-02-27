@@ -1,5 +1,6 @@
 ﻿import random
 import items
+import mod_sound_effects
 import world
 import mod_input_validation
 
@@ -166,13 +167,16 @@ class Player():
                 if i.damage > max_dmg:
                     max_dmg = i.damage
                     best_weapon = i
-
         print("You use {} against {}!".format(best_weapon.name, enemy.name))
         enemy.hp -= best_weapon.damage
+        self.hp -= enemy.damage
+        best_weapon.sound_effect()
+        print("Your HP: ", self.hp)
         if not enemy.is_alive():
             print("You killed {}!".format(enemy.name))
+            mod_sound_effects.killed_enemy()
         else:
-            print("{} HP is {}.".format(enemy.name, enemy.hp))
+            print("{} HP: {}".format(enemy.name, enemy.hp))
 
     def do_action(self, action, **kwargs):
         action_method = getattr(self, action.method.__name__)
