@@ -57,86 +57,12 @@ class StartingRoom(MapTile):
                                     'warm safe environment. You leave Frank’s room and have a few options where to\n'
                                     'look for supplies.\n')
         else:
-            print('You are back in the room where you started.')
+            print('Doc, what are you smoking? You started here. Get moving!')
         return """"""
 
     def modify_player(self, player):
         # Room has no action on player
         pass
-
-    def adjacent_moves(self):
-        # Overwrites the actions and displays the new actions
-        moves = []
-        if world.tile_exists(self.x + 1, self.y):
-            moves.append(actions.MoveEast())
-        if world.tile_exists(self.x - 1, self.y):
-            moves.append(actions.SearchTheSupplyRoom())
-        if world.tile_exists(self.x, self.y - 1):
-            moves.append(actions.ExitTheHospital())
-        if world.tile_exists(self.x, self.y + 1):
-            moves.append(actions.SearchTheMysteriousRoom())
-        return moves
-
-    class ExitHospitalClarification(MapTile):
-        def intro_text(self):
-            mod_sound_effects.background()
-            return mod_slow_text.slow_text(
-                    "\nYou enter a room and find the spare surgery equipment and the emergency axe. "
-                    "\nYou take a new scalpel, headlight, a clean doctor’s coat and the axe.")
-
-        def modify_player(self, player):
-
-            pass
-
-        def adjacent_moves(self):
-            # Overwrites the actions and displays the new actions
-            moves = []
-            if world.tile_exists(self.x, self.y - 1):
-                moves.append(actions.ExitTheHospitalY())
-            if world.tile_exists(self.x, self.y + 1):
-                moves.append(actions.ExitTheHospitalN())
-            return moves
-
-    class Outside(MapTile):
-        room_inventory = []
-
-        def intro_text(self):
-            mod_sound_effects.cold()
-            if mod_movement_history.check_history('Outside'):
-                mod_slow_text.slow_text("\nAs you walk out of the hospital, "
-                                        "\nyou notice how quickly the temperature is dropping outside. "
-                                        "\nIn order to survive, you need to find a warm shelter. "
-                                        "\nYou look ahead and see a large ball of smoke is forming in the sky. ")
-            else:
-                mod_slow_text.slow_text("\nYou are outside of the Hospital Entrance")
-            return """"""
-
-        def modify_player(self, player):
-            # Armor HP percentage subtracted from damage taken
-            player.hp -= 5 - (player.armor * 0.1)
-            print('You lost 5 health. Your HP is currently:', player.hp, '\n')
-
-
-class MysteriousRoom(MapTile):
-    def intro_text(self):
-        mod_sound_effects.background()
-        if mod_movement_history.check_history('MysteriousRoom'):
-            mod_slow_text.slow_text("\nYou enter a room and find the spare surgery equipment and the emergency axe. "
-                                    "\nYou take a new scalpel, headlight, a clean doctor’s coat and the axe.")
-        else:
-            print('You are back in the room where you took the equipment')
-        return """"""
-
-    def modify_player(self, player):
-
-        pass
-
-    def adjacent_moves(self):
-        # Overwrites the actions and displays the new actions
-        moves = []
-        if world.tile_exists(self.x, self.y - 1):
-            moves.append(actions.LeaveTheMysteriousRoom())
-        return moves
 
 
 class ColdRoom(MapTile):
@@ -170,13 +96,6 @@ class SupplyRoom01(MapTile):
     def modify_player(self, player):
         player.hp -= 2 - (player.armor * 0.1)
         print('Your body temperature is dropping. You lost 2 health. Your HP is currently:', player.hp, '\n')
-
-    def adjacent_moves(self):
-        # Overwrites the actions and displays the new actions
-        moves = []
-        if world.tile_exists(self.x + 1, self.y):
-            moves.append(actions.LeaveTheSupplyCloset())
-        return moves
 
 
 class EnemyRoom(MapTile):
