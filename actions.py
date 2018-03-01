@@ -35,7 +35,7 @@ class MoveWest(Action):
 class ViewRoomInventory(Action):
     # Room Inventory
     def __init__(self):
-        super().__init__(method=Player.room_inventory, name="Search This Room", hotkey='l')
+        super().__init__(method=Player.room_inventory, name="Search This Area", hotkey='l')
 
 
 class ViewInventory(Action):

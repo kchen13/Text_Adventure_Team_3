@@ -8,11 +8,11 @@ import mod_input_validation
 class Player():
     def __init__(self):
         # Inventory on startup
-        self.inventory = [items.Knife(), items.FirstAid(), items.DoctorsCoat()]
+        self.inventory = []
         # Health Points
         self.hp = 100
         # Armor Points
-        self.armor = 0
+        self.armor = self.best_armor()
         # Start Position
         self.location_x, self.location_y = world.starting_position  # (0, 0)
         # Last Position
@@ -108,8 +108,9 @@ class Player():
         if use == 0:
             return
         # Add health, delete from inventory
-        if use.name == 'First Aid Kit':
-            self.add_health(20)
+        health_list = ['First Aid Kit', 'Bandages']
+        if use.name in health_list:
+            self.add_health(use.health)
             del self.inventory[int(selection) - 1]
         # Does nothing
         else:
@@ -140,6 +141,7 @@ class Player():
         self.hp += hp2add
         if self.hp > 100:
             self.hp = 100
+        mod_sound_effects.health()
         print('Player Health is now:', self.hp)
 
     def move(self, dx, dy):
@@ -167,9 +169,11 @@ class Player():
                 if i.damage > max_dmg:
                     max_dmg = i.damage
                     best_weapon = i
-        print("You use {} against {}!".format(best_weapon.name, enemy.name))
+        if best_weapon is None:
+            best_weapon = items.Fists()
+        print("\nYou use {} against {}!".format(best_weapon.name, enemy.name))
         enemy.hp -= best_weapon.damage
-        self.hp -= enemy.damage
+        self.hp -= (enemy.damage - self.armor * 0.1)
         best_weapon.sound_effect()
         print("Your HP: ", self.hp)
         if not enemy.is_alive():
@@ -177,6 +181,14 @@ class Player():
             mod_sound_effects.killed_enemy()
         else:
             print("{} HP: {}".format(enemy.name, enemy.hp))
+
+    def best_armor(self):
+        max_hp = 0
+        for i in self.inventory:
+            if isinstance(i, items.Armor):
+                if i.hp > max_hp:
+                    max_hp = i.hp
+        return max_hp
 
     def do_action(self, action, **kwargs):
         action_method = getattr(self, action.method.__name__)

@@ -14,7 +14,7 @@ def play():
         if player.last_position(player.location_x, player.location_y):
             room.modify_player(player)
         if player.is_alive() and not player.victory:
-            print("Choose an action:\n")
+            print("Choose an action:")
             available_actions = room.available_actions()
             for action in available_actions:
                 print(action)

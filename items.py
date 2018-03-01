@@ -20,7 +20,7 @@ class Armor(Item):
         super().__init__(name, description)
 
     def __str__(self):
-        return '{}: {}\n----------------------\nProtection: {}' \
+        return '{}: {}\n----------------------\nProtection: {} % less damage taken' \
             .format(self.name, self.description, self.hp)
 
 
@@ -64,6 +64,17 @@ class DoctorsCoat(Armor):
         super().__init__(name="Doctors Coat",
                          description="Not much linen but a layer is a layer.",
                          hp=20)
+
+
+class Fists(Weapon):
+    def __init__(self):
+        super().__init__(name="Bare Knuckles",
+                         description="How tough are you?",
+                         damage=1)
+
+    @staticmethod
+    def sound_effect():
+        mod_sound_effects.fists()
 
 
 class Knife(Weapon):
