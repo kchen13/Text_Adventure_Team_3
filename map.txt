@@ -1,4 +1,5 @@
 				WinningRoom				
 				ColdRoom				
+			AbandonedCar01	ParkingLot				
 				ParkingLot				
 GhoulRoom01	GhoulRoom01	SupplyRoom01	ColdRoom	HospitalLobby	ColdRoom	MysteriousRoom	ColdRoom	GhoulRoom01

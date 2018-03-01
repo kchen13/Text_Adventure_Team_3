@@ -73,7 +73,7 @@ class HospitalLobby(MapTile):
     room_inventory = []
 
     def intro_text(self):
-        coordinates = str(self.x) + str(self.y)
+        coordinates = mod_movement_history.get_coordinates(self)
         mod_sound_effects.background()
         if mod_movement_history.check_history(coordinates):
             mod_slow_text.slow_text('\n'
@@ -103,7 +103,7 @@ class MysteriousRoom(MapTile):
     room_inventory = [items.DoctorsCoat(), items.Knife()]
 
     def intro_text(self):
-        coordinates = str(self.x) + str(self.y)
+        coordinates = mod_movement_history.get_coordinates(self)
         if mod_movement_history.check_history(coordinates):
             mod_slow_text.slow_text("There's a mist in the air, could be somethings in that cabinet though.\n")
         else:
@@ -123,7 +123,7 @@ class ColdRoom(MapTile):
     room_inventory = []
 
     def intro_text(self):
-        coordinates = str(self.x) + str(self.y)
+        coordinates = mod_movement_history.get_coordinates(self)
         mod_sound_effects.cold()
         if mod_movement_history.check_history(coordinates):
             mod_slow_text.slow_text("\nA cold fierce wind hits your body.\n")
@@ -143,7 +143,7 @@ class SupplyRoom01(MapTile):
     room_inventory = [items.FirstAid(), items.Bandages()]
 
     def intro_text(self):
-        coordinates = str(self.x) + str(self.y)
+        coordinates = mod_movement_history.get_coordinates(self)
         mod_sound_effects.supply()
         if mod_movement_history.check_history(coordinates):
             mod_slow_text.slow_text("\nIt's some sort of supplies room. Searching may be of your best interest.\n")
@@ -181,11 +181,11 @@ class ParkingLot(MapTile):
     room_inventory = [items.FirstAid(), items.Bandages()]
 
     def intro_text(self):
-        coordinates = str(self.x) + str(self.y)
+        coordinates = mod_movement_history.get_coordinates()
         mod_sound_effects.supply()
         if mod_movement_history.check_history(coordinates):
-            mod_slow_text.slow_text("\nThe moment you walk out you realize how quickly the temperature has fallen. In "
-                                    "order to survive you're going to need to find warmth and shelter. Better decide "
+            mod_slow_text.slow_text("\nThe moment you walk out you realize how quickly the temperature has fallen.\nIn "
+                                    "order to survive you're going to need to find warmth and shelter. Better decide\n "
                                     "quick before you die from the frigid coldness.\n")
         else:
             mod_slow_text.slow_text("\nIt's blistering cold and there's a sign that says No Loitering.")
@@ -194,6 +194,26 @@ class ParkingLot(MapTile):
     @staticmethod
     def modify_player(player):
         damage = 8 - (player.armor * 0.1)
+        player.hp -= damage
+        print('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
+              .format(damage, player.hp))
+
+
+class AbandonedCar01(MapTile):
+    room_id = 'towards an abandoned broken down SUV'
+    room_inventory = []
+
+    def intro_text(self):
+        coordinates = mod_movement_history.get_coordinates(self)
+        if mod_movement_history.check_history(coordinates):
+            mod_slow_text.slow_text("\nThe car is broken down, the door seems unlocked. Finders keepers.... right?\n")
+        else:
+            mod_slow_text.slow_text("\nSame old car, unfortunately a magical fairy hasn't come and revived it.\n")
+        return """"""
+
+    @staticmethod
+    def modify_player(player):
+        damage = 10 - (player.armor * 0.1)
         player.hp -= damage
         print('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
               .format(damage, player.hp))
