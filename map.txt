@@ -1,5 +1,4 @@
-			WinningRoom
-		ColdRoom	GhoulRoom01
-		ColdRoom		
-		GhoulRoom01		
-GhoulRoom01	SupplyRoom01	ColdRoom	StartingRoom	ColdRoom
+				WinningRoom				
+				ColdRoom				
+				ParkingLot				
+GhoulRoom01	GhoulRoom01	SupplyRoom01	ColdRoom	HospitalLobby	ColdRoom	MysteriousRoom	ColdRoom	GhoulRoom01
