@@ -17,7 +17,7 @@ knife_sound = mixer.Sound(path + '/sound effects/SE-Knife.ogg')
 enemy_dead = mixer.Sound(path + '/sound effects/SE-EnemyDead.ogg')
 fist_sound = mixer.Sound(path + '/sound effects/SE-Fists.ogg')
 health_sound = mixer.Sound(path + '/sound effects/SE-Health.ogg')
-
+wind_sound = mixer.Sound(path + '/sound effects/SE-Wind.ogg')
 
 def background():
     mixer.music.set_volume(0.4)
@@ -57,6 +57,10 @@ def health():
 def killed_enemy():
     mixer.Sound.play(enemy_dead)
 
+
+def wind():
+    mixer.Sound.play(wind_sound)
+
 # Credits
 # background: https://freesound.org/people/RokZRooM/sounds/344778/
 # cold: https://freesound.org/people/Kastenfrosch/sounds/162486/
@@ -67,3 +71,4 @@ def killed_enemy():
 # killed enemy: https://freesound.org/people/limetoe/sounds/249524/
 # fists: https://freesound.org/people/josepharaoh99/sounds/361636/
 # health: https://freesound.org/people/GameAudio/sounds/220173/
+# wind: https://freesound.org/people/helhel/sounds/346237/

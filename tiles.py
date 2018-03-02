@@ -176,16 +176,16 @@ class GhoulRoom01(EnemyRoom):
         return """"""
 
 
-class ParkingLot(MapTile):
+class ParkingLot01(MapTile):
     room_id = 'Parking Lot of the Hospital'
-    room_inventory = [items.FirstAid(), items.Bandages()]
+    room_inventory = []
 
     def intro_text(self):
-        coordinates = mod_movement_history.get_coordinates()
-        mod_sound_effects.supply()
+        coordinates = mod_movement_history.get_coordinates(self)
+        mod_sound_effects.wind()
         if mod_movement_history.check_history(coordinates):
             mod_slow_text.slow_text("\nThe moment you walk out you realize how quickly the temperature has fallen.\nIn "
-                                    "order to survive you're going to need to find warmth and shelter. Better decide\n "
+                                    "order to survive you're going to need to find warmth and shelter. Better decide\n"
                                     "quick before you die from the frigid coldness.\n")
         else:
             mod_slow_text.slow_text("\nIt's blistering cold and there's a sign that says No Loitering.")
@@ -199,12 +199,58 @@ class ParkingLot(MapTile):
               .format(damage, player.hp))
 
 
-class AbandonedCar01(MapTile):
-    room_id = 'towards an abandoned broken down SUV'
+class ParkingLot02(MapTile):
+    room_id = 'Parking Lot of the Hospital'
     room_inventory = []
 
     def intro_text(self):
         coordinates = mod_movement_history.get_coordinates(self)
+        mod_sound_effects.wind()
+        if mod_movement_history.check_history(coordinates):
+            mod_slow_text.slow_text("\nYou continue on, out towards the main street and away from the hospital. Will "
+                                    "you\nmake it to shelter? Making decisions for your survival will be crucial.\n")
+        else:
+            mod_slow_text.slow_text("\nIt's blistering cold and there's a sign that says No Loitering.")
+        return """"""
+
+    @staticmethod
+    def modify_player(player):
+        damage = 8 - (player.armor * 0.1)
+        player.hp -= damage
+        print('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
+              .format(damage, player.hp))
+
+
+class MainStreet(MapTile):
+    room_id = 'The main street outside of the Hospital'
+    room_inventory = []
+
+    def intro_text(self):
+        coordinates = mod_movement_history.get_coordinates(self)
+        mod_sound_effects.wind()
+        if mod_movement_history.check_history(coordinates):
+            mod_slow_text.slow_text("\nYou're now exiting the parking lot. The cold wind continues to hurt your face.\n"
+                                    "There seems to be hope in heading north, is that a cloud of smoke? Could there\n"
+                                    "be people there? Smoke, fire, warmth, what shall you do?\n")
+        else:
+            mod_slow_text.slow_text("\nIf you're not a polar bear you should probably should look for warmth.\n")
+        return """"""
+
+    @staticmethod
+    def modify_player(player):
+        damage = 8 - (player.armor * 0.1)
+        player.hp -= damage
+        print('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
+              .format(damage, player.hp))
+
+
+class AbandonedCar01(MapTile):
+    room_id = 'towards an abandoned broken down car'
+    room_inventory = [items.FirstAid(), items.Bandages()]
+
+    def intro_text(self):
+        coordinates = mod_movement_history.get_coordinates(self)
+        mod_sound_effects.wind()
         if mod_movement_history.check_history(coordinates):
             mod_slow_text.slow_text("\nThe car is broken down, the door seems unlocked. Finders keepers.... right?\n")
         else:

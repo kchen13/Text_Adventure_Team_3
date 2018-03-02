@@ -43,7 +43,7 @@ class Player():
         # Prints room inventory
         item_number = 1
         room = world.tile_exists(self.location_x, self.location_y)
-        print('*****    Room Items    *****')
+        print('*****    Area Items    *****')
         if len(room.room_inventory) == 0:
             # Returns if no items
             print("There's nothing here. Cold and empty like this world.\n")
