@@ -17,5 +17,13 @@ def slow_text(output):
     for letter in output:
         sys.stdout.write(letter)
         sys.stdout.flush()
-        time.sleep(0.000)  # Ideal speed 0.015
+        time.sleep(0.015)  # Ideal speed 0.015
+        mod_sound_effects.typing()
+
+
+def super_slow(output):
+    for letter in output:
+        sys.stdout.write(letter)
+        sys.stdout.flush()
+        time.sleep(0.05)  # Ideal speed 0.015
         mod_sound_effects.typing()

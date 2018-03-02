@@ -233,7 +233,7 @@ class MainStreet(MapTile):
                                     "There seems to be hope in heading north, is that a cloud of smoke? Could there\n"
                                     "be people there? Smoke, fire, warmth, what shall you do?\n")
         else:
-            mod_slow_text.slow_text("\nIf you're not a polar bear you should probably should look for warmth.\n")
+            mod_slow_text.slow_text("\nIf you're not a polar bear you should probably look for warmth.\n")
         return """"""
 
     @staticmethod
@@ -263,6 +263,24 @@ class AbandonedCar01(MapTile):
         player.hp -= damage
         print('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
               .format(damage, player.hp))
+
+
+class AbandonedTruck01(EnemyRoom):
+    room_id = 'towards a truck, could there be supplies there?'
+    room_inventory = [items.Bandages()]
+
+    def __init__(self, x, y):
+        super().__init__(x, y, enemies.Ghoul())
+
+    def intro_text(self):
+        if self.enemy.is_alive():
+            mod_slow_text.super_slow("\nLet's take a look at what's in the truck........")
+            mod_sound_effects.ghoul01()
+            mod_slow_text.slow_text("Holy crap, it's a God damn ghoul!"
+                                    "\nGhoul HP:" + str(self.enemy.hp))
+        else:
+            mod_slow_text.slow_text("\nA dead ghoul is a good ghoul.")
+        return """"""
 
 
 class WinningRoom(MapTile):
