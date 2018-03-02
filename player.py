@@ -8,7 +8,7 @@ import mod_input_validation
 class Player():
     def __init__(self):
         # Inventory on startup
-        self.inventory = []
+        self.inventory = [items.Axe(), items.DoctorsCoat()]
         # Health Points
         self.hp = 100
         # Armor Points
@@ -171,6 +171,7 @@ class Player():
                     best_weapon = i
         if best_weapon is None:
             best_weapon = items.Fists()
+            print('For Christ Sakes!', best_weapon.description)
         print("\nYou use {} against {}!".format(best_weapon.name, enemy.name))
         enemy.hp -= best_weapon.damage
         self.hp -= (enemy.damage - self.armor * 0.1)

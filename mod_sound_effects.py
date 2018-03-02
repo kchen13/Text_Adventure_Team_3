@@ -18,6 +18,10 @@ enemy_dead = mixer.Sound(path + '/sound effects/SE-EnemyDead.ogg')
 fist_sound = mixer.Sound(path + '/sound effects/SE-Fists.ogg')
 health_sound = mixer.Sound(path + '/sound effects/SE-Health.ogg')
 wind_sound = mixer.Sound(path + '/sound effects/SE-Wind.ogg')
+axe_sound = mixer.Sound(path + '/sound effects/SE-Axe.ogg')
+scalpel_sound = mixer.Sound(path + '/sound effects/SE-Scalpel.ogg')
+giant_ghoul_sound = mixer.Sound(path + '/sound effects/SE-GiantGhoul.ogg')
+
 
 def background():
     mixer.music.set_volume(0.4)
@@ -61,6 +65,19 @@ def killed_enemy():
 def wind():
     mixer.Sound.play(wind_sound)
 
+
+def axe():
+    mixer.Sound.play(axe_sound)
+
+
+def scalpel():
+    mixer.Sound.play(scalpel_sound)
+
+
+def giant_ghoul():
+    mixer.Sound.play(giant_ghoul_sound)
+
+
 # Credits
 # background: https://freesound.org/people/RokZRooM/sounds/344778/
 # cold: https://freesound.org/people/Kastenfrosch/sounds/162486/
@@ -72,3 +89,6 @@ def wind():
 # fists: https://freesound.org/people/josepharaoh99/sounds/361636/
 # health: https://freesound.org/people/GameAudio/sounds/220173/
 # wind: https://freesound.org/people/helhel/sounds/346237/
+# axe: https://freesound.org/people/dslrguide/sounds/321480/
+# scalpel: https://freesound.org/people/BristolStories/sounds/51702/
+# giant_ghoul: https://freesound.org/people/debsound/sounds/250148/

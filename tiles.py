@@ -105,7 +105,7 @@ class MysteriousRoom(MapTile):
     def intro_text(self):
         coordinates = mod_movement_history.get_coordinates(self)
         if mod_movement_history.check_history(coordinates):
-            mod_slow_text.slow_text("There's a mist in the air, could be somethings in that cabinet though.\n")
+            mod_slow_text.slow_text("There's a cold mist in the air, could be somethings in that cabinet though.\n")
         else:
             print('Not so mysterious anymore.')
         return """"""
@@ -140,7 +140,7 @@ class ColdRoom(MapTile):
 
 class SupplyRoom01(MapTile):
     room_id = 'looks like there could be supplies in this room.'
-    room_inventory = [items.FirstAid(), items.Bandages()]
+    room_inventory = [items.FirstAid(), items.Bandages(), items.Scalpel()]
 
     def intro_text(self):
         coordinates = mod_movement_history.get_coordinates(self)
@@ -169,7 +169,7 @@ class GhoulRoom01(EnemyRoom):
     def intro_text(self):
         if self.enemy.is_alive():
             mod_sound_effects.ghoul01()
-            mod_slow_text.slow_text("\nHoly crap, it's a God damn ghoul!"
+            mod_slow_text.slow_text("\nHoly crap, it's a God damn ghoul! Ugly, ferocious looking and missing some skin."
                                     "\nGhoul HP:" + str(self.enemy.hp))
         else:
             mod_slow_text.slow_text("\nHa! That ghoul looks like Tom Brady after Super Bowl LII.")
@@ -274,12 +274,124 @@ class AbandonedTruck01(EnemyRoom):
 
     def intro_text(self):
         if self.enemy.is_alive():
-            mod_slow_text.super_slow("\nLet's take a look at what's in the truck........")
+            mod_slow_text.super_slow("\nLet's take a look at what's in the truck........\n")
             mod_sound_effects.ghoul01()
-            mod_slow_text.slow_text("Holy crap, it's a God damn ghoul!"
+            mod_slow_text.slow_text("Ghoul! This one looks different from the ones in the hospital, uglier and\n"
+                                    "with less skin. He must be cold too.\n "
                                     "\nGhoul HP:" + str(self.enemy.hp))
         else:
             mod_slow_text.slow_text("\nA dead ghoul is a good ghoul.")
+        return """"""
+
+
+class SmokePath01(MapTile):
+    room_id = 'street that leads towards the smoke in the distance.'
+    room_inventory = []
+
+    def intro_text(self):
+        coordinates = mod_movement_history.get_coordinates(self)
+        mod_sound_effects.wind()
+        if mod_movement_history.check_history(coordinates):
+            mod_slow_text.slow_text("\nYou see the smoke in the distance, the feeling and hope is enough to keep you\n"
+                                    "warm for now. The streets are abandoned, there's trash flying around being \n"
+                                    "pushed by the fierce cold winds.\n")
+        else:
+            mod_slow_text.slow_text("\nThe wind blowing the trash around is making more progress than you.\n")
+        return """"""
+
+    @staticmethod
+    def modify_player(player):
+        damage = 10 - (player.armor * 0.1)
+        player.hp -= damage
+        print('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
+              .format(damage, player.hp))
+
+
+class SmokePath02(EnemyRoom):
+    room_id = 'street that continues closer to the smoke in the distance.'
+    room_inventory = [items.FirstAid(), items.Axe()]
+
+    def __init__(self, x, y):
+        super().__init__(x, y, enemies.Ghoul())
+
+    def intro_text(self):
+        if self.enemy.is_alive():
+            mod_slow_text.super_slow("\nThe street gets narrower as you walk, looks like a barricade at the next\n"
+                                     "block. The city looks like crap. It's pretty quiet, a bit too quiet........\n")
+            mod_sound_effects.ghoul01()
+            mod_slow_text.slow_text("Holy crap, it's a God damn ghoul! It has hardly any skin on him, eww!"
+                                    "\nGhoul HP:" + str(self.enemy.hp))
+        else:
+            mod_slow_text.slow_text("\nA defeated ghoul lays here. You're impressed by your previous feat and give\n "
+                                    "yourself a pat on the back.\n")
+        return """"""
+
+
+class SmokeNarrow01(MapTile):
+    room_id = 'street becomes narrow and the barricade is just up ahead'
+    room_inventory = []
+
+    def intro_text(self):
+        coordinates = mod_movement_history.get_coordinates(self)
+        mod_sound_effects.wind()
+        if mod_movement_history.check_history(coordinates):
+            mod_slow_text.slow_text("\nThe smoke in the air is getting closer but it looks like you'll need to take\n"
+                                    "a detour or go around on the smaller alley streets. A straight shot to fire and\n"
+                                    "warmth is just not an option.\n")
+        else:
+            mod_slow_text.slow_text("\nCame back again? What are you the Terminator?\n")
+        return """"""
+
+    @staticmethod
+    def modify_player(player):
+        damage = 10 - (player.armor * 0.1)
+        player.hp -= damage
+        print('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
+              .format(damage, player.hp))
+
+
+class SmallAlley01(MapTile):
+    room_id = 'a small alley way.'
+    room_inventory = []
+
+    def intro_text(self):
+        coordinates = mod_movement_history.get_coordinates(self)
+        mod_sound_effects.wind()
+        if mod_movement_history.check_history(coordinates):
+            mod_slow_text.super_slow("\nThere's less light this way, you hear sounds but can't make them out.\n"
+                                     "Could just be the trash moving around, maybe rats or mice. Can they "
+                                     "even.... \n"
+                                     "survive these temperatures?\n")
+        else:
+            mod_slow_text.slow_text("\nStay in this alley long enough and you'll become a prostitute for ghouls.\n")
+        return """"""
+
+    @staticmethod
+    def modify_player(player):
+        damage = 10 - (player.armor * 0.1)
+        player.hp -= damage
+        print('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
+              .format(damage, player.hp))
+
+
+class PharmaceuticalStore(EnemyRoom):
+    room_id = 'a broken down Pharmaceutical Store.'
+    room_inventory = [items.FirstAid(), items.Bandages()]
+
+    def __init__(self, x, y):
+        super().__init__(x, y, enemies.GiantGhoul())
+
+    def intro_text(self):
+        if self.enemy.is_alive():
+            mod_slow_text.super_slow("\nThe coast looks clear after slowly peeking in. You make your way to the to\n"
+                                     "the back counter. Shame it's one to shambles, not much here at all and it\n"
+                                     "looks like everything has been looted. What a minute what's this? A bookbag?\n")
+            mod_sound_effects.giant_ghoul()
+            mod_slow_text.slow_text("That was not a friendly sound. Looks like this kind of ghoul eats those other\n"
+                                    "ghouls for lunch. It's monstrous, twice the size and twice the ugly!\n"
+                                    "\nGiant Ghoul HP:" + str(self.enemy.hp))
+        else:
+            mod_slow_text.slow_text("\nThe uglier they are, the uglier they die. A giant ghoul lays here lifeless.\n")
         return """"""
 
 

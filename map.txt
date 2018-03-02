@@ -1,4 +1,7 @@
 				WinningRoom				
+		PharmaceuticalStore	SmallAlley01	SmokeNarrow01				
+				SmokePath02				
+				SmokePath01				
 		AbandonedTruck01	AbandonedCar01	MainStreet				
 				ParkingLot02				
 				ParkingLot01				

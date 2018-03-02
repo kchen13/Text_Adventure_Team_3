@@ -70,19 +70,41 @@ class Fists(Weapon):
     def __init__(self):
         super().__init__(name="Bare Knuckles",
                          description="How tough are you?",
-                         damage=1)
+                         damage=2)
 
     @staticmethod
     def sound_effect():
         mod_sound_effects.fists()
 
 
-class Knife(Weapon):
+class Scalpel(Weapon):
     def __init__(self):
-        super().__init__(name="Knife",
-                         description="A 3 inch rusted blade",
+        super().__init__(name="Scalpel",
+                         description="Not the biggest threat but sharp and effective.",
                          damage=5)
 
     @staticmethod
     def sound_effect():
+        mod_sound_effects.scalpel()
+
+
+class Knife(Weapon):
+    def __init__(self):
+        super().__init__(name="Knife",
+                         description="A 4 inch rusted blade.",
+                         damage=8)
+
+    @staticmethod
+    def sound_effect():
         mod_sound_effects.knife()
+
+
+class Axe(Weapon):
+    def __init__(self):
+        super().__init__(name="Fireman's Axe",
+                         description="A heavy blade attached to a handle.",
+                         damage=12)
+
+    @staticmethod
+    def sound_effect():
+        mod_sound_effects.axe()

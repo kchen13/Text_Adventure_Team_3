@@ -10,4 +10,9 @@
 
 class Ghoul(Enemy):
     def __init__(self):
-        super().__init__(name="Ghoul", hp=10, damage=5)
+        super().__init__(name="Ghoul", hp=20, damage=5)
+
+
+class GiantGhoul(Enemy):
+    def __init__(self):
+        super().__init__(name="Giant Ghoul", hp=40, damage=10)
