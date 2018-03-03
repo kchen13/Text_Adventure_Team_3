@@ -35,17 +35,19 @@ class MapTile:
             moves.append(actions.MoveSouth(rm_id))
         return moves
 
-    def available_actions(self):
+    def available_actions(self, the_player):
         # Returns available actions
         moves = self.adjacent_moves()
         moves.insert(0, actions.ViewRoomInventory())
         moves.append(actions.PlayerStats())
         moves.append(actions.ViewInventory())
+        if len(the_player.companions) > 0:
+            moves.append(actions.ViewCompanions())
         return moves
 
 
 class EnemyRoom(MapTile):
-    def intro_text(self):
+    def intro_text(self, the_player):
         pass
 
     def __init__(self, x, y, enemy):
@@ -57,16 +59,16 @@ class EnemyRoom(MapTile):
         if self.enemy.is_alive():
             damage = self.enemy.damage - (the_player.armor * 0.1)
             the_player.hp = the_player.hp - (self.enemy.damage - the_player.armor * 0.1)
-            print('{} does {} damage.\nYou have {} HP remaining.'.
-                  format(self.enemy.name, damage, the_player.hp))
+            mod_slow_text.slow('{} does {} damage.\nYou have {} HP remaining.'.
+                               format(self.enemy.name, damage, the_player.hp))
 
-    def available_actions(self):
+    def available_actions(self, the_player):
         if self.enemy.is_alive():
             moves = [actions.Flee(tile=self), actions.Attack(enemy=self.enemy), actions.PlayerStats(),
                      actions.ViewInventory()]
             return moves
         else:
-            return MapTile.available_actions(self)
+            return MapTile.available_actions(self, the_player)
 
 
 class HospitalLobby(MapTile):
@@ -75,8 +77,8 @@ class HospitalLobby(MapTile):
 
     def intro_text(self, the_player):
         coordinates = mod_movement_history.get_coordinates(self)
-        mod_sound_effects.background()
         if mod_movement_history.check_history(coordinates):
+            mod_sound_effects.background()
             mod_slow_text.super_slow('\n'
                                      '                ************************************\n'
                                      '                *            Hypothermia           *\n'
@@ -115,8 +117,8 @@ class MysteriousRoom(MapTile):
     def modify_player(player):
         damage = 4 - (player.armor * 0.1)
         player.hp -= damage
-        print('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
-              .format(damage, player.hp))
+        mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
+                           .format(damage, player.hp))
 
 
 class ColdRoom(MapTile):
@@ -136,7 +138,7 @@ class ColdRoom(MapTile):
     def modify_player(player):
         damage = 8 - (player.armor * 0.1)
         player.hp -= damage
-        print('You lost {} health.\nYour HP is currently: {}\n'.format(damage, player.hp))
+        mod_slow_text.slow('You lost {} health.\nYour HP is currently: {}\n'.format(damage, player.hp))
 
 
 class SupplyRoom01(MapTile):
@@ -156,8 +158,8 @@ class SupplyRoom01(MapTile):
     def modify_player(player):
         damage = 4 - (player.armor * 0.1)
         player.hp -= damage
-        print('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
-              .format(damage, player.hp))
+        mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
+                           .format(damage, player.hp))
 
 
 class GhoulRoom01(EnemyRoom):
@@ -197,8 +199,8 @@ class ParkingLot01(MapTile):
     def modify_player(player):
         damage = 8 - (player.armor * 0.1)
         player.hp -= damage
-        print('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
-              .format(damage, player.hp))
+        mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
+                           .format(damage, player.hp))
 
 
 class ParkingLot02(MapTile):
@@ -219,8 +221,8 @@ class ParkingLot02(MapTile):
     def modify_player(player):
         damage = 8 - (player.armor * 0.1)
         player.hp -= damage
-        print('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
-              .format(damage, player.hp))
+        mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
+                           .format(damage, player.hp))
 
 
 class MainStreet(MapTile):
@@ -243,8 +245,8 @@ class MainStreet(MapTile):
     def modify_player(player):
         damage = 8 - (player.armor * 0.1)
         player.hp -= damage
-        print('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
-              .format(damage, player.hp))
+        mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
+                           .format(damage, player.hp))
 
 
 class AbandonedCar01(MapTile):
@@ -264,8 +266,8 @@ class AbandonedCar01(MapTile):
     def modify_player(player):
         damage = 10 - (player.armor * 0.1)
         player.hp -= damage
-        print('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
-              .format(damage, player.hp))
+        mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
+                           .format(damage, player.hp))
 
 
 class AbandonedTruck01(EnemyRoom):
@@ -306,8 +308,8 @@ class SmokePath01(MapTile):
     def modify_player(player):
         damage = 10 - (player.armor * 0.1)
         player.hp -= damage
-        print('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
-              .format(damage, player.hp))
+        mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
+                           .format(damage, player.hp))
 
 
 class SmokePath02(EnemyRoom):
@@ -349,8 +351,8 @@ class SmokeNarrow01(MapTile):
     def modify_player(player):
         damage = 10 - (player.armor * 0.1)
         player.hp -= damage
-        print('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
-              .format(damage, player.hp))
+        mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
+                           .format(damage, player.hp))
 
 
 class SmallAlley01(MapTile):
@@ -373,8 +375,8 @@ class SmallAlley01(MapTile):
     def modify_player(player):
         damage = 10 - (player.armor * 0.1)
         player.hp -= damage
-        print('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
-              .format(damage, player.hp))
+        mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
+                           .format(damage, player.hp))
 
 
 class PharmaceuticalStore(EnemyRoom):
@@ -422,10 +424,10 @@ class Barricade(MapTile):
 
     @staticmethod
     def modify_player(player):
-        damage = 10 - (player.armor * 0.1)
+        damage = 15 - (player.armor * 0.1)
         player.hp -= damage
-        print('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
-              .format(damage, player.hp))
+        mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
+                           .format(damage, player.hp))
 
 
 class WinningRoom(MapTile):

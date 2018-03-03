@@ -23,7 +23,8 @@ scalpel_sound = mixer.Sound(path + '/sound effects/SE-Scalpel.ogg')
 giant_ghoul_sound = mixer.Sound(path + '/sound effects/SE-GiantGhoul.ogg')
 good_mystery_sound = mixer.Sound(path + '/sound effects/SE-GoodMystery.ogg')
 inventory_sound = mixer.Sound(path + '/sound effects/SE-InventoryPickup.ogg')
-
+companion_death_sound = mixer.Sound(path + '/sound effects/SE-CompanionDeath.ogg')
+colt45_sound = mixer.Sound(path + '/sound effects/SE-Colt45.ogg')
 
 def background():
     mixer.music.set_volume(0.4)
@@ -87,6 +88,14 @@ def good_mystery():
 def inventory_pickup():
     mixer.Sound.play(inventory_sound)
 
+
+def companion_death():
+    mixer.Sound.play(companion_death_sound)
+
+
+def colt45():
+    mixer.Sound.play(colt45_sound)
+
 # Credits
 # background: https://freesound.org/people/RokZRooM/sounds/344778/
 # cold: https://freesound.org/people/Kastenfrosch/sounds/162486/
@@ -103,3 +112,5 @@ def inventory_pickup():
 # giant_ghoul: https://freesound.org/people/debsound/sounds/250148/
 # good_surprise_sound: https://freesound.org/people/qubodup/sounds/169727/
 # inventory_pickup: https://freesound.org/people/Wagna/sounds/325805/
+# companion_death: https://freesound.org/people/FunWithSound/sounds/394900/
+# colt45: https://freesound.org/people/EFlexTheSoundDesigner/sounds/378204/

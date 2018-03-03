@@ -71,3 +71,18 @@ def speak_select(prompt, max):
         else:
             break
     return value
+
+
+def companion_action(prompt):
+    while True:
+        try:
+            value = input(prompt)
+        except ValueError:
+            print('You have to enter "h" or "x", please try again.')
+            continue
+        if value.lower() not in ('h', 'x'):
+            print('Incorrect input, please try again.')
+            continue
+        else:
+            break
+    return value.lower()

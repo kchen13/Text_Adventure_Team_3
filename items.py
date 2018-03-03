@@ -116,3 +116,14 @@ class Axe(Weapon):
     @staticmethod
     def sound_effect():
         mod_sound_effects.axe()
+
+
+class Colt45(Weapon):
+    def __init__(self):
+        super().__init__(name="Colt LW Commander 45",
+                         description="Single Action Hammer Fired Semi-Auto firing 45 ACP caliber ghoul stoppers.",
+                         damage=22)
+
+    @staticmethod
+    def sound_effect():
+        mod_sound_effects.colt45()

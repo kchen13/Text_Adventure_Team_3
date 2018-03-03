@@ -53,6 +53,12 @@ class PlayerStats(Action):
         return "\n{}: {}".format(self.hotkey, self.name)
 
 
+class ViewCompanions(Action):
+    # Inventory Menu
+    def __init__(self):
+        super().__init__(method=Player.companion_actions, name='View Companions', hotkey='c')
+
+
 class Attack(Action):
     def __init__(self, enemy):
         super().__init__(method=Player.attack, name="Attack", hotkey='a', enemy=enemy)

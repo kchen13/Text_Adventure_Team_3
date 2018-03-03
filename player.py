@@ -1,5 +1,6 @@
 ﻿import random
 import items
+import mod_slow_text
 import mod_sound_effects
 import world
 import mod_input_validation
@@ -8,9 +9,11 @@ import time
 class Player():
     def __init__(self):
         # Inventory on startup
-        self.inventory = [items.Axe(), items.DoctorsCoat(), items.Scalpel()]
+        self.inventory = [items.Colt45(), items.DoctorsCoat(), items.Scalpel(), items.FirstAid()]
+        # Player Companions
+        self.companions = []
         # Health Points
-        self.hp = 100
+        self.hp = 900
         # Armor Points
         self.armor = self.best_armor()
         # Start Position
@@ -168,6 +171,8 @@ class Player():
             print('For Christ Sakes!', weapon.description)
         print("\nYou use {} against {}!".format(weapon.name, enemy.name))
         enemy.hp -= weapon.damage
+        companion_damage = self.companion_attack(enemy.damage, enemy.hp)
+        enemy.hp -= companion_damage
         self.hp -= (enemy.damage - self.armor * 0.1)
         weapon.sound_effect()
         time.sleep(1.5)
@@ -198,6 +203,83 @@ class Player():
         if weapon is None:
             weapon = items.Fists()
         return weapon
+
+    def companion_actions(self):
+        self.print_companions()
+        # Prints actions and executes them
+        print('---------------------------')
+        print('Choose an action:')
+        print('h: Heal companion')
+        print('x: Exit companions menu')
+        # Prompts user and validates input
+        user_input = mod_input_validation.companion_action('Action:')
+        if user_input == 'h':
+            self.companion_heal()
+        if user_input == 'x':
+            return
+
+    def print_companions(self):
+        # Prints inventory menu
+        item_number = 1
+        print('*****    Companions    *****')
+        if len(self.companions) == 0:
+            # Returns if no items
+            print('You have no friends.\n')
+            return
+        for friends in self.companions:
+            print('(', item_number, ')', friends)
+            item_number += 1
+
+    def companion_heal(self):
+        # Use item prompts and validation
+        self.print_companions()
+        selection = mod_input_validation.item_select('Select companion to heal (0 to exit):', len(self.companions))
+        companion = self.companions[int(selection) - 1]
+        if companion == 0:
+            return
+        # Player select item to use
+        self.print_inventory()
+        selection = mod_input_validation.item_select('Select item to heal companion (0 to exit):', len(self.inventory))
+        use = self.inventory[int(selection) - 1]
+        # Returns to menu
+        if use == 0:
+            return
+        # Add health to companion, don't over 100hp, delete from inventory
+        health_list = ['First Aid Kit', 'Bandages']
+        if use.name in health_list:
+            companion.hp += use.health
+            mod_sound_effects.health()
+            print('{} HP: {}'.format(companion.name, companion.hp))
+            del self.inventory[int(selection) - 1]
+            if companion.hp > 100:
+                companion.hp = 100
+        # Does nothing
+        else:
+            print("Not usable in this instance.")
+
+    def companion_attack(self, enemy_damage, enemy_hp):
+        # Zero damage returned
+        if len(self.companions) == 0:
+            return 0
+        # Loop through companions on attacks
+        initial_enemy_hp = enemy_hp
+        total_damage = 0
+        for companion in self.companions:
+            index = 0
+            print('{} did {} damage.'.format(companion.name, companion.damage))
+            companion.hp -= enemy_damage
+            enemy_hp -= companion.damage
+            total_damage += companion.damage
+            if companion.hp <= 0:
+                del self.companions[index]
+                mod_sound_effects.companion_death()
+                mod_slow_text.super_slow('........................... {} died fighting.\n'.format(companion.name))
+            if companion.hp > 0:
+                print('{} HP: {}'.format(companion.name, companion.hp))
+            if enemy_hp <= 0:
+                return initial_enemy_hp
+            index += 1
+        return total_damage
 
     def do_action(self, action, **kwargs):
         action_method = getattr(self, action.method.__name__)

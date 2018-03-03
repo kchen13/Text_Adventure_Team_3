@@ -15,7 +15,7 @@ def play():
             room.modify_player(player)
         if player.is_alive() and not player.victory:
             print("Choose an action:")
-            available_actions = room.available_actions()
+            available_actions = room.available_actions(player)
             for action in available_actions:
                 print(action)
             action_input = input('Action: ')
