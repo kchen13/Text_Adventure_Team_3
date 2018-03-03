@@ -7,7 +7,7 @@ def play():
     player = Player()
     # These lines load the starting room and display the text
     room = world.tile_exists(player.location_x, player.location_y)
-    print(room.intro_text())
+    print(room.intro_text(player))
     while player.is_alive() and not player.victory:
         room = world.tile_exists(player.location_x, player.location_y)
         # Check to see if player moved before modding player

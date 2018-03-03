@@ -1,8 +1,12 @@
-				WinningRoom				
-		PharmaceuticalStore	SmallAlley01	SmokeNarrow01				
-				SmokePath02				
-				SmokePath01				
-		AbandonedTruck01	AbandonedCar01	MainStreet				
-				ParkingLot02				
-				ParkingLot01				
-GhoulRoom01	GhoulRoom01	SupplyRoom01	ColdRoom	HospitalLobby	ColdRoom	MysteriousRoom	ColdRoom	GhoulRoom01
+			WinningRoom				
+			Barricade				
+	PharmaceuticalStore	SmallAlley01	SmokeNarrow01				
+			SmokePath02				
+			SmokePath01				
+	AbandonedTruck01	AbandonedCar01	MainStreet				
+			ParkingLot02				
+			Barricade				
+GhoulRoom01	SupplyRoom01	ColdRoom	HospitalLobby	ColdRoom	MysteriousRoom	ColdRoom	GhoulRoom01
+GhoulRoom01		ColdRoom					
+		GhoulRoom01					
+		SupplyRoom01					

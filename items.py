@@ -63,7 +63,15 @@ class DoctorsCoat(Armor):
     def __init__(self):
         super().__init__(name="Doctors Coat",
                          description="Not much linen but a layer is a layer.",
-                         hp=20)
+                         hp=15)
+
+
+class HeavyCoat(Armor):
+    # __init__ is the constructor method
+    def __init__(self):
+        super().__init__(name="Heavy Military Style Coat",
+                         description="Great insulation and a hard durable shell.",
+                         hp=35)
 
 
 class Fists(Weapon):

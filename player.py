@@ -3,12 +3,12 @@ import items
 import mod_sound_effects
 import world
 import mod_input_validation
-
+import time
 
 class Player():
     def __init__(self):
         # Inventory on startup
-        self.inventory = [items.Axe(), items.DoctorsCoat()]
+        self.inventory = [items.Axe(), items.DoctorsCoat(), items.Scalpel()]
         # Health Points
         self.hp = 100
         # Armor Points
@@ -65,6 +65,7 @@ class Player():
                 loot = room.room_inventory[int(selection) - 1]
                 print('You picked up a', loot)
                 self.inventory.append(loot)
+                mod_sound_effects.inventory_pickup()
                 # Removes from room inventory
                 del room.room_inventory[int(selection) - 1]
         self.room_inventory()
@@ -147,7 +148,7 @@ class Player():
     def move(self, dx, dy):
         self.location_x += dx
         self.location_y += dy
-        print(world.tile_exists(self.location_x, self.location_y).intro_text())
+        print(world.tile_exists(self.location_x, self.location_y).intro_text(self))
 
     def move_north(self):
         self.move(dx=0, dy=-1)
@@ -162,22 +163,17 @@ class Player():
         self.move(dx=-1, dy=0)
 
     def attack(self, enemy):
-        best_weapon = None
-        max_dmg = 0
-        for i in self.inventory:
-            if isinstance(i, items.Weapon):
-                if i.damage > max_dmg:
-                    max_dmg = i.damage
-                    best_weapon = i
-        if best_weapon is None:
-            best_weapon = items.Fists()
-            print('For Christ Sakes!', best_weapon.description)
-        print("\nYou use {} against {}!".format(best_weapon.name, enemy.name))
-        enemy.hp -= best_weapon.damage
+        weapon = self.best_weapon()
+        if weapon is None:
+            print('For Christ Sakes!', weapon.description)
+        print("\nYou use {} against {}!".format(weapon.name, enemy.name))
+        enemy.hp -= weapon.damage
         self.hp -= (enemy.damage - self.armor * 0.1)
-        best_weapon.sound_effect()
+        weapon.sound_effect()
+        time.sleep(1.5)
         print("Your HP: ", self.hp)
         if not enemy.is_alive():
+
             print("You killed {}!".format(enemy.name))
             mod_sound_effects.killed_enemy()
         else:
@@ -190,6 +186,18 @@ class Player():
                 if i.hp > max_hp:
                     max_hp = i.hp
         return max_hp
+
+    def best_weapon(self):
+        weapon = None
+        max_dmg = 0
+        for i in self.inventory:
+            if isinstance(i, items.Weapon):
+                if i.damage > max_dmg:
+                    max_dmg = i.damage
+                    weapon = i
+        if weapon is None:
+            weapon = items.Fists()
+        return weapon
 
     def do_action(self, action, **kwargs):
         action_method = getattr(self, action.method.__name__)

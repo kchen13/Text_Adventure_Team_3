@@ -56,3 +56,18 @@ def inventory_action(prompt):
         else:
             break
     return value.lower()
+
+
+def speak_select(prompt, max):
+    while True:
+        try:
+            value = int(input(prompt))
+        except ValueError:
+            print('You have to enter a number from 1 to ', max)
+            continue
+        if not 1 <= value <= max:
+            print('Incorrect input, please try again.')
+            continue
+        else:
+            break
+    return value

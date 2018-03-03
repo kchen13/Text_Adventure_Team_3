@@ -21,6 +21,8 @@ wind_sound = mixer.Sound(path + '/sound effects/SE-Wind.ogg')
 axe_sound = mixer.Sound(path + '/sound effects/SE-Axe.ogg')
 scalpel_sound = mixer.Sound(path + '/sound effects/SE-Scalpel.ogg')
 giant_ghoul_sound = mixer.Sound(path + '/sound effects/SE-GiantGhoul.ogg')
+good_mystery_sound = mixer.Sound(path + '/sound effects/SE-GoodMystery.ogg')
+inventory_sound = mixer.Sound(path + '/sound effects/SE-InventoryPickup.ogg')
 
 
 def background():
@@ -78,6 +80,13 @@ def giant_ghoul():
     mixer.Sound.play(giant_ghoul_sound)
 
 
+def good_mystery():
+    mixer.Sound.play(good_mystery_sound)
+
+
+def inventory_pickup():
+    mixer.Sound.play(inventory_sound)
+
 # Credits
 # background: https://freesound.org/people/RokZRooM/sounds/344778/
 # cold: https://freesound.org/people/Kastenfrosch/sounds/162486/
@@ -92,3 +101,5 @@ def giant_ghoul():
 # axe: https://freesound.org/people/dslrguide/sounds/321480/
 # scalpel: https://freesound.org/people/BristolStories/sounds/51702/
 # giant_ghoul: https://freesound.org/people/debsound/sounds/250148/
+# good_surprise_sound: https://freesound.org/people/qubodup/sounds/169727/
+# inventory_pickup: https://freesound.org/people/Wagna/sounds/325805/

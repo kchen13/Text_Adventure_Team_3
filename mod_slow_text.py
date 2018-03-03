@@ -7,7 +7,7 @@ import time
 import mod_sound_effects
 
 
-def slow_text(output):
+def slow(output):
     """
     Method takes in any string and outputs it slowly on the screen.
     Gives a sense of suspense.
@@ -25,5 +25,5 @@ def super_slow(output):
     for letter in output:
         sys.stdout.write(letter)
         sys.stdout.flush()
-        time.sleep(0.00)  # Ideal speed 0.05
+        time.sleep(0.00)  # Ideal speed 0.04
         mod_sound_effects.typing()
