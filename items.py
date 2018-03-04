@@ -48,7 +48,7 @@ class FirstAid(Health):
     def __init__(self):
         super().__init__(name="First Aid Kit",
                          description="Life saving health boost.",
-                         health=20)
+                         health=25)
 
 
 class Bandages(Health):
@@ -72,6 +72,14 @@ class HeavyCoat(Armor):
         super().__init__(name="Heavy Military Style Coat",
                          description="Great insulation and a hard durable shell.",
                          hp=35)
+
+
+class KevlarJacket(Armor):
+    # __init__ is the constructor method
+    def __init__(self):
+        super().__init__(name="Heavy Military Kevlar Jacket",
+                         description="Great insulation, super tough and almost impenetrable.",
+                         hp=45)
 
 
 class Fists(Weapon):

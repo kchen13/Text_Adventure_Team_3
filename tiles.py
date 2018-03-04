@@ -290,7 +290,7 @@ class AbandonedTruck01(EnemyRoom):
 
 
 class SmokePath01(MapTile):
-    room_id = 'street that leads towards the smoke in the distance.'
+    room_id = 'street parallel to the smoke'
     room_inventory = []
 
     def intro_text(self, the_player):
@@ -313,7 +313,7 @@ class SmokePath01(MapTile):
 
 
 class SmokePath02(EnemyRoom):
-    room_id = 'street that continues closer to the smoke in the distance.'
+    room_id = 'street parallel to the smoke'
     room_inventory = [items.FirstAid(), items.Axe()]
 
     def __init__(self, x, y):
@@ -375,7 +375,7 @@ class SmallAlley01(MapTile):
     def modify_player(player):
         damage = 10 - (player.armor * 0.1)
         player.hp -= damage
-        mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
+        mod_slow_text.slow('It is frigid out here!\nYou lost {} health.\nYour HP is currently: {}\n'
                            .format(damage, player.hp))
 
 
@@ -430,17 +430,257 @@ class Barricade(MapTile):
                            .format(damage, player.hp))
 
 
-class WinningRoom(MapTile):
-    room_id = 'is that warmth?'
+class SnowyPath01(MapTile):
+    room_id = 'a cold snowy path.'
+    room_inventory = []
 
     def intro_text(self, the_player):
-        return """
-        You see a bright light in the distance...
-        ... it grows as you get closer! It's sunlight!
- 
- 
-        Victory is yours!
-        """
+        coordinates = mod_movement_history.get_coordinates(self)
+        mod_sound_effects.wind()
+        if mod_movement_history.check_history(coordinates):
+            mod_slow_text.super_slow("\nThere might be a way around this way. It starts snowing and the wind picks\n"
+                                     "up. The sound of rustling trash in the distance.\n")
+        else:
+            mod_slow_text.slow("\nStill snowing here, want to build a snowman?\n")
+        return """"""
+
+    @staticmethod
+    def modify_player(player):
+        damage = 15 - (player.armor * 0.1)
+        player.hp -= damage
+        mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
+                           .format(damage, player.hp))
+
+
+class AbandonedTruck02(EnemyRoom):
+    room_id = 'an abondoned truck'
+    room_inventory = [items.Bandages(), items.Bandages()]
+
+    def __init__(self, x, y):
+        super().__init__(x, y, enemies.Ghoul())
+
+    def intro_text(self, the_player):
+        if self.enemy.is_alive():
+            mod_slow_text.super_slow("\nThis truck is beat up, hopefully there's something here........\n")
+            mod_sound_effects.giant_ghoul()
+            mod_slow_text.slow("Crap... A giant ghoul appears from around the side. He sounds like he's pissed."
+                               "\nGhoul HP:" + str(self.enemy.hp))
+        else:
+            mod_slow_text.slow("\nA dead giant ghoul is a good giant ghoul.")
+        return """"""
+
+
+class SmallAlley02(MapTile):
+    room_id = 'a small alley way.'
+    room_inventory = [items.FirstAid()]
+
+    def intro_text(self, the_player):
+        coordinates = mod_movement_history.get_coordinates(self)
+        mod_sound_effects.wind()
+        if mod_movement_history.check_history(coordinates):
+            mod_slow_text.super_slow("\nThere's less light this way, you hear sounds but can't make them out.\n"
+                                     "Appears to be clear and you can see the smoke in the sky this way.")
+        else:
+            mod_slow_text.slow("\nStay in this alley long enough and you'll become a prostitute for ghouls.\n")
+        return """"""
+
+    @staticmethod
+    def modify_player(player):
+        damage = 17 - (player.armor * 0.1)
+        player.hp -= damage
+        mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
+                           .format(damage, player.hp))
+
+
+class SmallAlley03(EnemyRoom):
+    room_id = 'a small alley way.'
+    room_inventory = [items.KevlarJacket()]
+
+    def __init__(self, x, y):
+        super().__init__(x, y, enemies.Zombie())
+
+    def intro_text(self, the_player):
+        if self.enemy.is_alive():
+            mod_slow_text.super_slow("\nYou continue on your quest for warmth. The willingness to live is on a tight\n"
+                                     "rope. Still snowing, cold, dark but the smoke isn't too far away now.........\n")
+            mod_sound_effects.zombie()
+            mod_slow_text.slow("What in the hell is that? A ghoul type creature appears but it is not a ghoul.\n")
+            mod_sound_effects.zombie()
+            mod_slow_text.slow("Seems to not be missing as much skin but it's blueish skin makes it look frozen. All\n"
+                               "remnants of blood are frozen and very blackish. The sound is horrendous, he's like a\n"
+                               "zombie or something. The frozen walking dead!"
+                               "\nZombie HP:" + str(self.enemy.hp))
+        else:
+            mod_slow_text.slow("\nWhat is already dead can just be more dead. Give yourself a pat on the back.\n")
+        return """"""
+
+
+class SmallAlley04(MapTile):
+    room_id = 'a small alley way.'
+    room_inventory = []
+
+    def intro_text(self, the_player):
+        coordinates = mod_movement_history.get_coordinates(self)
+        mod_sound_effects.wind()
+        if mod_movement_history.check_history(coordinates):
+            mod_slow_text.super_slow("\nLooks like a dead end up ahead. You walk in despair, thinking of a warm hot\n"
+                                     "juicy cheese steak. Or a roast beef sandwich and cheese fries. A hot cup of \n"
+                                     "chocolate and then you remember to move your lips as they have almost froze\n"
+                                     "shut. The smoke isn't far, there's hope.\n")
+        else:
+            mod_slow_text.slow("\nMmmmm cheese steaaaaaakssss....\n")
+        return """"""
+
+    @staticmethod
+    def modify_player(player):
+        damage = 17 - (player.armor * 0.1)
+        player.hp -= damage
+        mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
+                           .format(damage, player.hp))
+
+
+class ZombieTruck01(EnemyRoom):
+    room_id = 'towards a truck, could there be supplies there?'
+    room_inventory = [items.Bandages()]
+
+    def __init__(self, x, y):
+        super().__init__(x, y, enemies.Zombie())
+
+    def intro_text(self, the_player):
+        if self.enemy.is_alive():
+            mod_slow_text.super_slow("\nThis truck reminds me of when.... there's a hidden path behind this truck...\n")
+            mod_sound_effects.zombie()
+            mod_slow_text.slow("A frozen zombie jumps out, and screams into your face. It's go time!"
+                               "\nZombie HP:" + str(self.enemy.hp))
+        else:
+            mod_slow_text.slow("\nThe dead frozen zombie lays lifeless, they could probably make a TV show.....")
+        return """"""
+
+
+class FactoryPath(MapTile):
+    room_id = 'small path'
+    room_inventory = []
+
+    def intro_text(self, the_player):
+        coordinates = mod_movement_history.get_coordinates(self)
+        mod_sound_effects.wind()
+        if mod_movement_history.check_history(coordinates):
+            mod_slow_text.super_slow("\nAs you walk through the path, there's light at the end. There's the smoke\n"
+                                     "but this is not what was expected. It's a factory building on fire. The smoke\n"
+                                     "still rages into the sky and the fire is quite visible.\n")
+        else:
+            mod_slow_text.slow("\nYou wonder how you have survived so long being so stupid. Amazing.\n")
+        return """"""
+
+    @staticmethod
+    def modify_player(player):
+        damage = 17 - (player.armor * 0.1)
+        player.hp -= damage
+        mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
+                           .format(damage, player.hp))
+
+
+class Factory(MapTile):
+    room_id = 'the Factory up in flames'
+    room_inventory = []
+
+    def intro_text(self, the_player):
+        coordinates = mod_movement_history.get_coordinates(self)
+        mod_sound_effects.wind()
+        if mod_movement_history.check_history(coordinates):
+            mod_slow_text.super_slow("\nAs you walk closer to the fire, the building burns. This is not the timeline\n"
+                                     "you have hoped for. At least there is still fire, maybe there's some sort of\n"
+                                     "fuel... supplies....")
+            mod_sound_effects.zombie()
+            mod_slow_text.super_slow("Oh no! You see a bunched up mob of what looks like zombies that...\n")
+            mod_sound_effects.ghoul01()
+            mod_slow_text.super_slow("Are surrounding the immediate area. They haven't turned around yet, thank the\n"
+                                     "heavens. You freeze and try to not make a sound. What will do?\n")
+            mod_sound_effects.zombie()
+            mod_sound_effects.ghoul01()
+            mod_slow_text.super_slow("You look to your left, a street that goes a bit aways. Could be an opportunity\n"
+                                     "at a not so gruesome death. To the right, well shit! The right literally\n"
+                                     "mirrors the left. The mob of unfriendly have turn around. Decide quick!\n")
+        else:
+            mod_slow_text.slow("\nBurn baby burn. Mob of undead up ahead.\n")
+        return """"""
+
+    @staticmethod
+    def modify_player(player):
+        damage = 17 - (player.armor * 0.1)
+        player.hp -= damage
+        mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
+                           .format(damage, player.hp))
+
+
+class FightUndeadMob(EnemyRoom):
+    room_id = 'towards the undead mob.'
+    room_inventory = []
+
+    def __init__(self, x, y):
+        super().__init__(x, y, enemies.UndeadMob())
+
+    def intro_text(self, the_player):
+        if self.enemy.is_alive():
+            mod_slow_text.super_slow("\nYou charge like a maniac towards the mob.......\n")
+            mod_sound_effects.undead_mob()
+            mod_slow_text.slow("You immediately regret this decision. The death of an unknown doctor comes to mind.\n"
+                               "\nZombie HP:" + str(self.enemy.hp))
+        else:
+            mod_slow_text.slow("\nNo way you survived this.")
+        return """"""
+
+
+class Victory01(MapTile):
+    room_id = 'street right of the factory'
+
+    def intro_text(self, the_player):
+        mod_slow_text.super_slow("You are hauling ass, running fast and hard, almost out of breath. You feel like\n"
+                                 "the oxygen is going to freeze inside of your lungs. Full on panic as you start to\n"
+                                 "stumble. You look back... they're coming!\n")
+        mod_sound_effects.undead_mob()
+        mod_slow_text.super_slow("Suddenly a pothole cover lifts up, a human's voice!\n"
+                                 "\nMan's voice: If you want to live you better come down under here!\n"
+                                 "You slide down right into the pot hole. Fall down 10 feet into frozen sewage. It\n"
+                                 "freaking stinks down here but you're alive.\n")
+        mod_sound_effects.victory()
+        mod_slow_text.super_slow("\nMan's voice: Hey man! I'm Joe Oakes. I know you, you're a doctor right? Well this\n"
+                                 "is our means of survival for now. We have all entrances to the tunnels down here\n"
+                                 "locked. We have a heat source and generators as well towards our base. This\n"
+                                 "community is the future, we are rebuilding and will figure a way to live normal.\n"
+                                 "\n You made it doc! These are the lower class survivors but hell, you made it!\n"
+                                 "Survived monsters of all sorts and avoided dying from the cold.\n")
+        return """"""
+
+    @staticmethod
+    def modify_player(player):
+        player.victory = True
+
+
+class Victory02(MapTile):
+    room_id = 'street right of the factory'
+
+    def intro_text(self, the_player):
+        mod_slow_text.super_slow("You are hauling ass, running fast and hard, almost out of breath. You feel like\n"
+                                 "the oxygen is going to freeze inside of your lungs. Full on panic as you start to\n"
+                                 "stumble. You look back... they're coming!\n")
+        mod_sound_effects.undead_mob()
+        mod_slow_text.super_slow("Your whole body is tense, ready for a battle to the death.\n"
+                                 "\nMan's voice: If you want to live you better come down under here!\n"
+                                 "You slide down right into the pot hole. Fall down 10 feet but it's warm and lovely.\n"
+                                 "It's absolutely brilliant down here.\n")
+        mod_sound_effects.victory()
+        mod_slow_text.super_slow("\nMan's voice: Hey man! I'm Thaddeus. I know you, you're a doctor right? Well this\n"
+                                 "is our means of survival for now. All the uppper class civilians made it down here a\n"
+                                 "while ago. We have all entrances to the tunnels down here locked and protected at\n"
+                                 "all times. I used to be a body builder, plenty of us big muscles were hired by the\n"
+                                 "rich folks that had a plan. We have plenty of heat sources and generators setup all\n"
+                                 "over the place. Besides being underground this is the most safe and best place to\n"
+                                 "be. Welcom to our community!\n"
+                                 "\n You made it doc! Survived monsters of all sorts and avoided dying from the cold."
+                                 "\n Living with the upper class, you're going to fit right in as a doctor and they\n"
+                                 "will all need you down here.\n")
+        return """"""
 
     @staticmethod
     def modify_player(player):

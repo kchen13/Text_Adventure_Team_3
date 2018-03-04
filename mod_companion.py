@@ -72,7 +72,7 @@ def hunter_introduction(player):
 
     if selection == 3:
         mod_slow_text.super_slow("Hunter: What in the world? What's up your ass man. I was gonna help you out.\n"
-                                 "\nHe raises his gun at you and fires.")
+                                 "\nHe raises his gun at you and fires.\n")
         mod_sound_effects.colt45()
         mod_slow_text.super_slow("You quickly try to take cover as he is still firing shots, you're hit. This is\n"
                                  "the absolutely worst decision you've ever made. You're now safe behind a wall.\n")

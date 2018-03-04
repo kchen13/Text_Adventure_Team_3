@@ -13,7 +13,7 @@ class Player():
         # Player Companions
         self.companions = []
         # Health Points
-        self.hp = 900
+        self.hp = 100
         # Armor Points
         self.armor = self.best_armor()
         # Start Position
@@ -175,7 +175,7 @@ class Player():
         enemy.hp -= companion_damage
         self.hp -= (enemy.damage - self.armor * 0.1)
         weapon.sound_effect()
-        time.sleep(1.5)
+        time.sleep(1)
         print("Your HP: ", self.hp)
         if not enemy.is_alive():
 

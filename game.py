@@ -1,5 +1,8 @@
+import mod_slow_text
+import mod_sound_effects
 import world
 from player import Player
+import time
 
 
 def play():
@@ -23,6 +26,24 @@ def play():
                 if action_input == action.hotkey:
                     player.do_action(action, **action.kwargs)
                     break
+    if player.victory:
+        time.sleep(1)
+        mod_slow_text.super_slow('                ************************************\n'
+                                 '                *            GAME   OVER           *\n'
+                                 '                ************************************\n')
+        mod_sound_effects.undead_mob()
+        time.sleep(7)
+    if not player.victory:
+        mod_slow_text.super_slow('The agony of defeat. You have not been able to survive. Your body lays there\n'
+                                 'cold and dead forever......\n')
+        mod_sound_effects.zombie()
+        time.sleep(1)
+        mod_slow_text.super_slow('Or maybe not.......\n'
+                                 '                ************************************\n'
+                                 '                *            GAME   OVER           *\n'
+                                 '                ************************************\n')
+        mod_sound_effects.undead_mob()
+        time.sleep(7)
 
 
 if __name__ == "__main__":

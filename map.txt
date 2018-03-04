@@ -1,11 +1,15 @@
-			WinningRoom				
-			Barricade				
-	PharmaceuticalStore	SmallAlley01	SmokeNarrow01				
-			SmokePath02				
+			Victory01				
+		FightUndeadMob	Factory	FactoryPath	ZombieTruck01	SmallAlley03	
+			Victory02			SmallAlley04	AbandonedCar01
+						SmallAlley03	
+						SmallAlley02	
+			Barricade	SnowyPath01	SnowyPath01	SnowyPath01	
+	PharmaceuticalStore	SmallAlley01	SmokeNarrow01		AbandonedTruck02		
+			SmokePath02		SnowyPath01		
 			SmokePath01				
 	AbandonedTruck01	AbandonedCar01	MainStreet				
 			ParkingLot02				
-			Barricade				
+			ParkingLot01				
 GhoulRoom01	SupplyRoom01	ColdRoom	HospitalLobby	ColdRoom	MysteriousRoom	ColdRoom	GhoulRoom01
 GhoulRoom01		ColdRoom					
 		GhoulRoom01					

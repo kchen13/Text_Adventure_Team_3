@@ -25,6 +25,10 @@ good_mystery_sound = mixer.Sound(path + '/sound effects/SE-GoodMystery.ogg')
 inventory_sound = mixer.Sound(path + '/sound effects/SE-InventoryPickup.ogg')
 companion_death_sound = mixer.Sound(path + '/sound effects/SE-CompanionDeath.ogg')
 colt45_sound = mixer.Sound(path + '/sound effects/SE-Colt45.ogg')
+zombie_sound = mixer.Sound(path + '/sound effects/SE-Zombie.ogg')
+undead_mob_sound = mixer.Sound(path + '/sound effects/SE-UndeadMob.ogg')
+victory_sound = mixer.Sound(path + '/sound effects/SE-Victory.ogg')
+
 
 def background():
     mixer.music.set_volume(0.4)
@@ -96,6 +100,18 @@ def companion_death():
 def colt45():
     mixer.Sound.play(colt45_sound)
 
+
+def zombie():
+    mixer.Sound.play(zombie_sound)
+
+
+def undead_mob():
+    mixer.Sound.play(undead_mob_sound)
+
+
+def victory():
+    mixer.Sound.play(victory_sound)
+
 # Credits
 # background: https://freesound.org/people/RokZRooM/sounds/344778/
 # cold: https://freesound.org/people/Kastenfrosch/sounds/162486/
@@ -114,3 +130,6 @@ def colt45():
 # inventory_pickup: https://freesound.org/people/Wagna/sounds/325805/
 # companion_death: https://freesound.org/people/FunWithSound/sounds/394900/
 # colt45: https://freesound.org/people/EFlexTheSoundDesigner/sounds/378204/
+# zombie: https://freesound.org/people/LittleRobotSoundFactory/sounds/316192/
+# undead_mob: https://freesound.org/people/thegreatperson/sounds/210826/
+# victory: https://freesound.org/people/FunWithSound/sounds/369252/

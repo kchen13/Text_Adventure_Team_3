@@ -16,3 +16,13 @@ class Ghoul(Enemy):
 class GiantGhoul(Enemy):
     def __init__(self):
         super().__init__(name="Giant Ghoul", hp=100, damage=16)
+
+
+class Zombie(Enemy):
+    def __init__(self):
+        super().__init__(name="Giant Ghoul", hp=120, damage=23)
+
+
+class UndeadMob(Enemy):
+    def __init__(self):
+        super().__init__(name="Undead Mob", hp=500, damage=100)
