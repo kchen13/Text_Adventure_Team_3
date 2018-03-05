@@ -6,10 +6,11 @@ import world
 import mod_input_validation
 import time
 
+
 class Player():
     def __init__(self):
         # Inventory on startup
-        self.inventory = [items.Colt45(), items.DoctorsCoat(), items.Scalpel(), items.FirstAid()]
+        self.inventory = []
         # Player Companions
         self.companions = []
         # Health Points

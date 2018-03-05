@@ -25,4 +25,4 @@ class Zombie(Enemy):
 
 class UndeadMob(Enemy):
     def __init__(self):
-        super().__init__(name="Undead Mob", hp=500, damage=100)
+        super().__init__(name="Undead Mob", hp=500, damage=150)
