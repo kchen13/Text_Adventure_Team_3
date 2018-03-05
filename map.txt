@@ -3,13 +3,13 @@
 						Victory02			SmallAlley04	AbandonedCar01
 									SmallAlley03	
 									SmallAlley02	
-						Barricade	SnowyPath01	SnowyPath01	SnowyPath01	
-				PharmaceuticalStore	SmallAlley01	SmokeNarrow01		AbandonedTruck02		
-						SmokePath02		SnowyPath01		
+		ConvenienceStore				Barricade	SnowyPath01	SnowyPath01	SnowyPath01	
+WoodedPath02	WoodedPath03	BackAlley01	BackAlley02	PharmaceuticalStore	SmallAlley01	SmokeNarrow01		AbandonedTruck02		
+WoodedPath01						SmokePath02		SnowyPath01		
 Backyard		AbandonedCar01		AbandonedCar01		SmokePath01				
 Home	Driveway	HomePath02	HomePath01	HomePath01	HomePath01	MainStreet	AbandonedCar01	AbandonedTruck01		
 				AbandonedTruck01		ParkingLot02				
-						Backyard				
+						ParkingLot01				
 			GhoulRoom01	SupplyRoom01	ColdRoom	HospitalLobby	ColdRoom	MysteriousRoom	ColdRoom	GhoulRoom01
 			GhoulRoom01		ColdRoom					
 					GhoulRoom01					

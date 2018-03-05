@@ -91,7 +91,10 @@ class HospitalLobby(MapTile):
                                      'electricity, you have to abandon him.\n'
                                      '\nThe dropping temperature is causing you to look for supplies and search for a\n'
                                      'warm safe environment. You leave Frank’s room and have a few options where to\n'
-                                     'look for supplies.\nYou stand in the hospital lobby awaiting your fate. \n')
+                                     'look for supplies.\n'
+                                     '\nNorth is towards the parking lot which leads to a main street.\n'
+                                     'There is another exit at the east side of the Hospital.\n'
+                                     'You stand in the hospital lobby awaiting your fate.\n')
         else:
             print('Doc, what are you smoking? You started here. Get moving!')
         return """"""
@@ -103,7 +106,7 @@ class HospitalLobby(MapTile):
 
 class MysteriousRoom(MapTile):
     room_id = 'oddly mysterious room is this direction.'
-    room_inventory = [items.DoctorsCoat(), items.Knife()]
+    room_inventory = [items.DoctorsCoat(), items.Knife(), items.FirstAid(), items.FirstAid()]
 
     def intro_text(self, the_player):
         coordinates = mod_movement_history.get_coordinates(self)
@@ -115,7 +118,7 @@ class MysteriousRoom(MapTile):
 
     @staticmethod
     def modify_player(player):
-        damage = 4 - (player.armor * 0.1)
+        damage = 3 - (player.armor * 0.1)
         player.hp -= damage
         mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
                            .format(damage, player.hp))
@@ -136,7 +139,7 @@ class ColdRoom(MapTile):
 
     @staticmethod
     def modify_player(player):
-        damage = 8 - (player.armor * 0.1)
+        damage = 3 - (player.armor * 0.1)
         player.hp -= damage
         mod_slow_text.slow('You lost {} health.\nYour HP is currently: {}\n'.format(damage, player.hp))
 
@@ -156,7 +159,7 @@ class SupplyRoom01(MapTile):
 
     @staticmethod
     def modify_player(player):
-        damage = 4 - (player.armor * 0.1)
+        damage = 3 - (player.armor * 0.1)
         player.hp -= damage
         mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
                            .format(damage, player.hp))
@@ -197,7 +200,7 @@ class ParkingLot01(MapTile):
 
     @staticmethod
     def modify_player(player):
-        damage = 8 - (player.armor * 0.1)
+        damage = 5 - (player.armor * 0.1)
         player.hp -= damage
         mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
                            .format(damage, player.hp))
@@ -219,7 +222,7 @@ class ParkingLot02(MapTile):
 
     @staticmethod
     def modify_player(player):
-        damage = 8 - (player.armor * 0.1)
+        damage = 7 - (player.armor * 0.1)
         player.hp -= damage
         mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
                            .format(damage, player.hp))
@@ -267,7 +270,7 @@ class AbandonedCar01(MapTile):
 
     @staticmethod
     def modify_player(player):
-        damage = 10 - (player.armor * 0.1)
+        damage = 8 - (player.armor * 0.1)
         player.hp -= damage
         mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
                            .format(damage, player.hp))
@@ -309,7 +312,7 @@ class SmokePath01(MapTile):
 
     @staticmethod
     def modify_player(player):
-        damage = 10 - (player.armor * 0.1)
+        damage = 5 - (player.armor * 0.1)
         player.hp -= damage
         mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
                            .format(damage, player.hp))
@@ -352,7 +355,7 @@ class SmokeNarrow01(MapTile):
 
     @staticmethod
     def modify_player(player):
-        damage = 10 - (player.armor * 0.1)
+        damage = 6 - (player.armor * 0.1)
         player.hp -= damage
         mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
                            .format(damage, player.hp))
@@ -360,7 +363,7 @@ class SmokeNarrow01(MapTile):
 
 class SmallAlley01(MapTile):
     room_id = 'a small alley way.'
-    room_inventory = []
+    room_inventory = [items.Bandages()]
 
     def intro_text(self, the_player):
         coordinates = mod_movement_history.get_coordinates(self)
@@ -376,7 +379,7 @@ class SmallAlley01(MapTile):
 
     @staticmethod
     def modify_player(player):
-        damage = 10 - (player.armor * 0.1)
+        damage = 6 - (player.armor * 0.1)
         player.hp -= damage
         mod_slow_text.slow('It is frigid out here!\nYou lost {} health.\nYour HP is currently: {}\n'
                            .format(damage, player.hp))
@@ -427,7 +430,7 @@ class Barricade(MapTile):
 
     @staticmethod
     def modify_player(player):
-        damage = 15 - (player.armor * 0.1)
+        damage = 8 - (player.armor * 0.1)
         player.hp -= damage
         mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
                            .format(damage, player.hp))
@@ -449,7 +452,7 @@ class SnowyPath01(MapTile):
 
     @staticmethod
     def modify_player(player):
-        damage = 15 - (player.armor * 0.1)
+        damage = 8 - (player.armor * 0.1)
         player.hp -= damage
         mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
                            .format(damage, player.hp))
@@ -489,7 +492,7 @@ class SmallAlley02(MapTile):
 
     @staticmethod
     def modify_player(player):
-        damage = 17 - (player.armor * 0.1)
+        damage = 6 - (player.armor * 0.1)
         player.hp -= damage
         mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
                            .format(damage, player.hp))
@@ -536,7 +539,7 @@ class SmallAlley04(MapTile):
 
     @staticmethod
     def modify_player(player):
-        damage = 17 - (player.armor * 0.1)
+        damage = 7 - (player.armor * 0.1)
         player.hp -= damage
         mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
                            .format(damage, player.hp))
@@ -577,7 +580,7 @@ class FactoryPath(MapTile):
 
     @staticmethod
     def modify_player(player):
-        damage = 17 - (player.armor * 0.1)
+        damage = 12 - (player.armor * 0.1)
         player.hp -= damage
         mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
                            .format(damage, player.hp))
@@ -610,7 +613,7 @@ class Factory(MapTile):
 
     @staticmethod
     def modify_player(player):
-        damage = 17 - (player.armor * 0.1)
+        damage = 15 - (player.armor * 0.1)
         player.hp -= damage
         mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
                            .format(damage, player.hp))
@@ -708,7 +711,7 @@ class HomePath01(MapTile):
 
     @staticmethod
     def modify_player(player):
-        damage = 8 - (player.armor * 0.1)
+        damage = 6 - (player.armor * 0.1)
         player.hp -= damage
         mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
                            .format(damage, player.hp))
@@ -716,7 +719,7 @@ class HomePath01(MapTile):
 
 class HomePath02(EnemyRoom):
     room_id = 'road that connects to your home and the main street.'
-    room_inventory = [items.KevlarJacket()]
+    room_inventory = [items.HeavyCoat()]
 
     def __init__(self, x, y):
         super().__init__(x, y, enemies.Zombie())
@@ -777,7 +780,7 @@ class Home(MapTile):
 
     @staticmethod
     def modify_player(player):
-        damage = 5 - (player.armor * 0.1)
+        damage = 3 - (player.armor * 0.1)
         player.hp -= damage
         mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
                            .format(damage, player.hp))
@@ -799,8 +802,8 @@ class Backyard(MapTile):
                                      "you're a bit shocked, your body tenses up gripping your {}.\n\n"
                                      .format(the_player.best_weapon().name))
             mod_sound_effects.dog()
-            mod_slow_text.super_slow("\nThe dog is a wearing protective vest. Maybe it was a service dog before.\n"
-                                     "It's super friendly, looks like you got yourself a new partner.\n")
+            mod_slow_text.super_slow("\nThe dog is wearing a protective vest. Maybe it was a service dog before.\n"
+                                     "It's extremely friendly, looks like you got yourself a new partner.\n")
             the_player.companions.append(mod_companion.Dog())
             the_player.print_companions()
             mod_sound_effects.dog()
@@ -811,9 +814,146 @@ class Backyard(MapTile):
 
     @staticmethod
     def modify_player(player):
-        damage = 15 - (player.armor * 0.1)
+        damage = 7 - (player.armor * 0.1)
         player.hp -= damage
         mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
                            .format(damage, player.hp))
 
-# TODO: make path back to main path towards fire
+
+class WoodedPath01(MapTile):
+    room_id = 'a small wooded path.'
+    room_inventory = [items.Bandages()]
+
+    def intro_text(self, the_player):
+        coordinates = mod_movement_history.get_coordinates(self)
+        mod_sound_effects.wind()
+        if mod_movement_history.check_history(coordinates):
+            mod_slow_text.super_slow("\nAs you leave the memories of your home the wooded path back here isn't so\n"
+                                     "bad. The shrubs and trees provide some wind protection. You must press on north\n"
+                                     "east towards the smoke, it's visible but it's quite far.\n")
+        else:
+            mod_slow_text.slow("\nThis must have been a path like Little Red Riding Hood had taken....\n")
+        return """"""
+
+    @staticmethod
+    def modify_player(player):
+        damage = 5 - (player.armor * 0.1)
+        player.hp -= damage
+        mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
+                           .format(damage, player.hp))
+
+
+class WoodedPath02(EnemyRoom):
+    room_id = 'a small wooded path.'
+    room_inventory = [items.FirstAid(), items.Bandages()]
+
+    def __init__(self, x, y):
+        super().__init__(x, y, enemies.Bear())
+
+    def intro_text(self, the_player):
+        if self.enemy.is_alive():
+            mod_sound_effects.wind()
+            mod_slow_text.super_slow("\nIt hasn't gotten any warmer. The wind is still sneaking through where it can\n"
+                                     "as if it's sole purpose is to kill by freezing your body stiff. You continue\n"
+                                     "walking at a fast pace......\n")
+            mod_sound_effects.bear()
+            mod_slow_text.slow("A big brown bear runs up onto the path in front of you, standing on his hind legs. He\n"
+                               "looks hungry. He looks rabid, maybe diseased. It's either you or him.\n"
+                               "\n"
+                               "\nBlack Bear:" + str(self.enemy.hp))
+        else:
+            mod_slow_text.slow("\nA bear's dead body lay here. You must press on to survive.\n")
+        return """"""
+
+
+class WoodedPath03(MapTile):
+    room_id = 'a small less wooded path.'
+    room_inventory = [items.Bandages()]
+
+    def intro_text(self, the_player):
+        coordinates = mod_movement_history.get_coordinates(self)
+        mod_sound_effects.wind()
+        if mod_movement_history.check_history(coordinates):
+            mod_slow_text.super_slow("\nTo the east seems to be a street of some sort, like a back alley. Might be a\n"
+                                     "way back towards the main streets and easier access to get to the source of the\n"
+                                     "smoke. A small feeling of hope crosses your mind.\n")
+        else:
+            mod_slow_text.slow("\nBeen here, done that.....\n")
+        return """"""
+
+    @staticmethod
+    def modify_player(player):
+        damage = 6 - (player.armor * 0.1)
+        player.hp -= damage
+        mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
+                           .format(damage, player.hp))
+
+
+class BackAlley01(MapTile):
+    room_id = 'a back alley to some street possibly.'
+    room_inventory = []
+
+    def intro_text(self, the_player):
+        coordinates = mod_movement_history.get_coordinates(self)
+        mod_sound_effects.wind()
+        if mod_movement_history.check_history(coordinates):
+            mod_slow_text.super_slow("\nThere's a backdoor to a convenience store to the your north. Ahead, the alley\n"
+                                     "hits a dead end but there appears to be a back entrance to a Pharmaceutical\n"
+                                     "Store.\n")
+        else:
+            mod_slow_text.slow("\nIt's cold, you're in an alley and you've been here before. Shall we twiddle our\n"
+                               "thumbs or play hop scotch back here?\n")
+        return """"""
+
+    @staticmethod
+    def modify_player(player):
+        damage = 5 - (player.armor * 0.1)
+        player.hp -= damage
+        mod_slow_text.slow('BRRRRRRR.... Freezing!\nYou lost {} health.\nYour HP is currently: {}\n'
+                           .format(damage, player.hp))
+
+
+class ConvenienceStore(EnemyRoom):
+    room_id = 'a small alley way.'
+    room_inventory = [items.FirstAid(), items.FirstAid()]
+
+    def __init__(self, x, y):
+        super().__init__(x, y, enemies.Zombie())
+
+    def intro_text(self, the_player):
+        if self.enemy.is_alive():
+            mod_slow_text.super_slow("\nThe door is cracked up. You quietly sneak in, trying not to make a sound. A\n"
+                                     "stench of death hits your nostrils after a few steps. Seems pretty quiet....\n")
+            mod_sound_effects.zombie()
+            mod_slow_text.slow("What in the hell is that? A ghoul type creature appears but it is not a ghoul.\n")
+            mod_sound_effects.zombie()
+            mod_slow_text.slow("Seems to not be missing as much skin but it's blueish skin makes it look frozen. All\n"
+                               "remnants of blood are frozen and very blackish. The sound is horrendous, he's like a\n"
+                               "zombie or something. The frozen walking dead!"
+                               "\nZombie HP:" + str(self.enemy.hp))
+        else:
+            mod_slow_text.slow("\nWhat is already dead can just be more dead. Give yourself a pat on the back.\n")
+        return """"""
+
+
+class BackAlley02(MapTile):
+    room_id = 'a back alley of the Pharmaceutical Store.'
+    room_inventory = []
+
+    def intro_text(self, the_player):
+        coordinates = mod_movement_history.get_coordinates(self)
+        mod_sound_effects.wind()
+        if mod_movement_history.check_history(coordinates):
+            mod_slow_text.super_slow("\nThere's a backdoor to a pharmaceutical store. Probably First Aid kits galore\n"
+                                     "in there. Head back through the woods or push onward to unknown territory.\n")
+        else:
+            mod_slow_text.slow("\nIt's cold, you're in an alley and you've been here before. Shall we twiddle our\n"
+                               "thumbs or play hop scotch back here?\n")
+        return """"""
+
+    @staticmethod
+    def modify_player(player):
+        damage = 4 - (player.armor * 0.1)
+        player.hp -= damage
+        mod_slow_text.slow('BRRRRRRR.... Freezing!\nYou lost {} health.\nYour HP is currently: {}\n'
+                           .format(damage, player.hp))
