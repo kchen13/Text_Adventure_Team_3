@@ -28,6 +28,7 @@ colt45_sound = mixer.Sound(path + '/sound effects/SE-Colt45.ogg')
 zombie_sound = mixer.Sound(path + '/sound effects/SE-Zombie.ogg')
 undead_mob_sound = mixer.Sound(path + '/sound effects/SE-UndeadMob.ogg')
 victory_sound = mixer.Sound(path + '/sound effects/SE-Victory.ogg')
+dog_sound = mixer.Sound(path + '/sound effects/SE-DogBark.ogg')
 
 
 def background():
@@ -112,6 +113,10 @@ def undead_mob():
 def victory():
     mixer.Sound.play(victory_sound)
 
+
+def dog():
+    mixer.Sound.play(dog_sound)
+
 # Credits
 # background: https://freesound.org/people/RokZRooM/sounds/344778/
 # cold: https://freesound.org/people/Kastenfrosch/sounds/162486/
@@ -133,3 +138,4 @@ def victory():
 # zombie: https://freesound.org/people/LittleRobotSoundFactory/sounds/316192/
 # undead_mob: https://freesound.org/people/thegreatperson/sounds/210826/
 # victory: https://freesound.org/people/FunWithSound/sounds/369252/
+# dog: https://freesound.org/people/olliauska/sounds/418105/

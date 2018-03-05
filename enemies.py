@@ -20,7 +20,7 @@ class GiantGhoul(Enemy):
 
 class Zombie(Enemy):
     def __init__(self):
-        super().__init__(name="Giant Ghoul", hp=120, damage=23)
+        super().__init__(name="Giant Ghoul", hp=100, damage=23)
 
 
 class UndeadMob(Enemy):

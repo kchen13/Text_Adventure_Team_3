@@ -236,7 +236,10 @@ class MainStreet(MapTile):
             mod_slow_text.super_slow(
                 "\nYou're now exiting the parking lot. The cold wind continues to hurt your face.\n"
                 "There seems to be hope in heading north, is that a cloud of smoke? Could there\n"
-                "be people there? Smoke, fire, warmth, what shall you do?\n")
+                "be people there? Smoke, fire, and warmth is a sound decision?\n"
+                "You look towards the west the familiar direction of your home. How much has your\n"
+                "house been ransacked and scavanged? Is it worth the detour to try and get supplies\n"
+                "at your home? Are there memories or belongings you hold dear?\n")
         else:
             mod_slow_text.slow("\nIf you're not a polar bear you should probably look for warmth.\n")
         return """"""
@@ -540,7 +543,7 @@ class SmallAlley04(MapTile):
 
 
 class ZombieTruck01(EnemyRoom):
-    room_id = 'towards a truck, could there be supplies there?'
+    room_id = 'towards the smoke, also a truck this way.'
     room_inventory = [items.Bandages()]
 
     def __init__(self, x, y):
@@ -685,3 +688,132 @@ class Victory02(MapTile):
     @staticmethod
     def modify_player(player):
         player.victory = True
+
+
+class HomePath01(MapTile):
+    room_id = 'road that connects to your home and the main street.'
+    room_inventory = [items.Axe()]
+
+    def intro_text(self, the_player):
+        coordinates = mod_movement_history.get_coordinates(self)
+        mod_sound_effects.wind()
+        if mod_movement_history.check_history(coordinates):
+            mod_slow_text.super_slow("\nThe wind is a constant smack to your face. You shiver and brace yourself\n"
+                                     "against the cold and unforgiving wind. The memories of your home give you\n"
+                                     "inner warmth that gives you hope and strength. There's a burnt up fireman's\n"
+                                     "outfit with remains of a skeleton, may be something is in the area.\n")
+        else:
+            mod_slow_text.slow("\nGet moving or die, a pretty easy question right?\n")
+        return """"""
+
+    @staticmethod
+    def modify_player(player):
+        damage = 8 - (player.armor * 0.1)
+        player.hp -= damage
+        mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
+                           .format(damage, player.hp))
+
+
+class HomePath02(EnemyRoom):
+    room_id = 'road that connects to your home and the main street.'
+    room_inventory = [items.KevlarJacket()]
+
+    def __init__(self, x, y):
+        super().__init__(x, y, enemies.Zombie())
+
+    def intro_text(self, the_player):
+        if self.enemy.is_alive():
+            mod_slow_text.super_slow("\nNot much further till your once beautiful home. The hope and belief that\n"
+                                     "there is something there that will help you on your quest for survival is\n"
+                                     "strong. You've now started walking faster in desperation and excitement.\n")
+            mod_sound_effects.zombie()
+            mod_slow_text.slow("What in the hell is that? A ghoul type creature appears but it is not a ghoul.\n")
+            mod_sound_effects.zombie()
+            mod_slow_text.slow("Seems to not be missing as much skin but it's blueish skin makes it look frozen. All\n"
+                               "remnants of blood are frozen and very blackish. The sound is horrendous, he's like a\n"
+                               "zombie or something. The frozen walking dead!"
+                               "\nZombie HP:" + str(self.enemy.hp))
+        else:
+            mod_slow_text.slow("\nWhat is already dead can just be more dead. Give yourself a pat on the back.\n")
+        return """"""
+
+
+class Driveway(EnemyRoom):
+    room_id = 'driveway in front of your house.'
+    room_inventory = [items.FirstAid(), items.Bandages()]
+
+    def __init__(self, x, y):
+        super().__init__(x, y, enemies.GiantGhoul())
+
+    def intro_text(self, the_player):
+        if self.enemy.is_alive():
+            mod_slow_text.super_slow("\nThe coast looks clear your house is in shambles. Emotions are strong but\n"
+                                     "you try to remain strong and fight back the tears. A burnt up car sits there\n"
+                                     "peacefully. Your coming to terms with the situation......\n")
+            mod_sound_effects.giant_ghoul()
+            mod_slow_text.slow("You freeze in fear. It is absolutely massive! Looks like this kind of ghoul eats\n"
+                               "those other ghouls for lunch. Twice the size and twice the ugly!\n"
+                               "\nGiant Ghoul HP:" + str(self.enemy.hp))
+        else:
+            mod_slow_text.slow("\nA dead giant ghoul lays lifeless, it probably trespassed at the wrong house.\n")
+        return """"""
+
+
+class Home(MapTile):
+    room_id = 'home sweet home.'
+    room_inventory = [items.Colt45()]
+
+    def intro_text(self, the_player):
+        coordinates = mod_movement_history.get_coordinates(self)
+        mod_sound_effects.wind()
+        if mod_movement_history.check_history(coordinates):
+            mod_slow_text.super_slow("\nYou enter through you front door. There isn't much here at all, a complete\n"
+                                     "mess. The backdoor leads to a road that should be able to take you back in the\n"
+                                     "direction of the smoke. People have already taken their turns looting the\n"
+                                     "place. Did they find your hidden pistol though?\n")
+        else:
+            mod_slow_text.slow("\nHome is where the heart is, unless you want a frozen heart you should probably go.\n")
+        return """"""
+
+    @staticmethod
+    def modify_player(player):
+        damage = 5 - (player.armor * 0.1)
+        player.hp -= damage
+        mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
+                           .format(damage, player.hp))
+
+
+class Backyard(MapTile):
+    room_id = 'backyard of your house.'
+    room_inventory = []
+
+    def intro_text(self, the_player):
+        coordinates = mod_movement_history.get_coordinates(self)
+        mod_sound_effects.wind()
+        if mod_movement_history.check_history(coordinates):
+            mod_slow_text.super_slow("\nYou can see the smoke in the distance, it's off to the north east. Walking\n"
+                                     "around aimlessly is also an option, it's really up to you at this point. While"
+                                     "pondering your options you hear a familiar sound. What could be out here?\n")
+            mod_sound_effects.good_mystery()
+            mod_slow_text.super_slow("\nA German Shepard dog comes out from behind a tree. It's slow to engage,\n"
+                                     "you're a bit shocked, your body tenses up gripping your {}.\n\n"
+                                     .format(the_player.best_weapon().name))
+            mod_sound_effects.dog()
+            mod_slow_text.super_slow("\nThe dog is a wearing protective vest. Maybe it was a service dog before.\n"
+                                     "It's super friendly, looks like you got yourself a new partner.\n")
+            the_player.companions.append(mod_companion.Dog())
+            the_player.print_companions()
+            mod_sound_effects.dog()
+
+        else:
+            mod_slow_text.slow("\nIt's a wall of junk, hoarding trash isn't a smart idea right now.\n")
+        return """"""
+
+    @staticmethod
+    def modify_player(player):
+        damage = 15 - (player.armor * 0.1)
+        player.hp -= damage
+        mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
+                           .format(damage, player.hp))
+
+# TODO: make path back to main path towards fire

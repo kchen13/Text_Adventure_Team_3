@@ -26,6 +26,16 @@ class Hunter(Companion):
                '      Damage: {}\n'.format(self.name, self.hp, self.damage)
 
 
+class Dog(Companion):
+    def __init__(self):
+        super().__init__(name="Dog", hp=150, damage=15)
+
+    def __str__(self):
+        return 'Companion: {}\n' \
+               '      HP: {}\n' \
+               '      Damage: {}\n'.format(self.name, self.hp, self.damage)
+
+
 def hunter_introduction(player):
     # Hunter into
     mod_slow_text.super_slow("The man walks out and he's bundled up well, he's pointing two pistols at you but he\n"
