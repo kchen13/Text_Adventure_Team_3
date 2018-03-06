@@ -48,14 +48,14 @@ class FirstAid(Health):
     def __init__(self):
         super().__init__(name="First Aid Kit",
                          description="Life saving health boost.",
-                         health=25)
+                         health=30)
 
 
 class Bandages(Health):
     def __init__(self):
         super().__init__(name="Bandages",
                          description="Great for nicks and scratches.",
-                         health=10)
+                         health=15)
 
 
 class DoctorsCoat(Armor):

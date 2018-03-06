@@ -1,16 +1,16 @@
-						Victory01				
-					FightUndeadMob	Factory	FactoryPath	ZombieTruck01	SmallAlley03	
-						Victory02			SmallAlley04	AbandonedCar01
-									SmallAlley03	
-									SmallAlley02	
-		ConvenienceStore				Barricade	SnowyPath01	SnowyPath01	SnowyPath01	
-WoodedPath02	WoodedPath03	BackAlley01	BackAlley02	PharmaceuticalStore	SmallAlley01	SmokeNarrow01		AbandonedTruck02		
-WoodedPath01						SmokePath02		SnowyPath01		
-Backyard		AbandonedCar01		AbandonedCar01		SmokePath01				
-Home	Driveway	HomePath02	HomePath01	HomePath01	HomePath01	MainStreet	AbandonedCar01	AbandonedTruck01		
-				AbandonedTruck01		ParkingLot02				
-						ParkingLot01				
-			GhoulRoom01	SupplyRoom01	ColdRoom	HospitalLobby	ColdRoom	MysteriousRoom	ColdRoom	GhoulRoom01
-			GhoulRoom01		ColdRoom					
-					GhoulRoom01					
-					SupplyRoom01					
+						Victory01							
+					FightUndeadMob	Factory	FactoryPath	ZombieTruck01	SmallAlley03				
+						Victory02			SmallAlley04	AbandonedCar01			
+									SmallAlley03				
+									SmallAlley02				
+		ConvenienceStore				Barricade	SnowyPath01	SnowyPath01	SnowyPath01				
+WoodedPath02	WoodedPath03	BackAlley01	BackAlley02	PharmaceuticalStore	SmallAlley01	SmokeNarrow01		AbandonedTruck02					
+WoodedPath01						SmokePath02		SnowyPath01					
+Backyard		AbandonedCar01		AbandonedCar01		SmokePath01					AbandonedTruck01		
+Home	Driveway	HomePath02	HomePath01	HomePath01	HomePath01	MainStreet	AbandonedCar01	AbandonedTruck01	SmallAlley03	SmallAlley01	ParkExit	ParkArea03	
+				AbandonedTruck01		ParkingLot02						ParkArea02	
+						ParkArea03						ParkArea01	AbandonedTruck01
+			GhoulRoom01	SupplyRoom01	ColdRoom	HospitalLobby	ColdRoom	MysteriousRoom	ColdRoom	GhoulRoom01	EastExit	ParkEntrance	
+			GhoulRoom01		ColdRoom								
+					GhoulRoom01								
+					SupplyRoom01								

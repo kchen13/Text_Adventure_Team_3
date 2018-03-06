@@ -26,6 +26,16 @@ class Hunter(Companion):
                '      Damage: {}\n'.format(self.name, self.hp, self.damage)
 
 
+class John(Companion):
+    def __init__(self):
+        super().__init__(name="Hunter", hp=70, damage=17)
+
+    def __str__(self):
+        return 'Companion: {}\n' \
+               '      HP: {}\n' \
+               '      Damage: {}\n'.format(self.name, self.hp, self.damage)
+
+
 class Dog(Companion):
     def __init__(self):
         super().__init__(name="Dog", hp=150, damage=15)
@@ -69,7 +79,7 @@ def hunter_introduction(player):
         mod_slow_text.super_slow("Hunter: Well finally I meet a tough summabitch. Literally everyone I've met just\n"
                                  "runs off like I'm boogey man or something. I like it, I like your plan too.\n"
                                  "Here's a jacket to help you out. Unfortunately I only have 3 hands and a third\n"
-                                 "pistol, here you guy. Lets role!")
+                                 "pistol, here you guy. Lets role!\n")
         # Add heavy coat, colt45
         player.inventory.append(items.HeavyCoat())
         player.inventory.append(items.Colt45())
@@ -92,4 +102,43 @@ def hunter_introduction(player):
         player.hp -= 40
         mod_slow_text.super_slow("Your HP: " + str(player.hp))
 
+    return
+
+
+def john_introduction(player):
+    # John into
+    mod_slow_text.super_slow("The man slowly raises his hand.\n\n"
+                             "Figure's Voice: I'm not one of them.... I'm not one of them... I'm human. Please\n"
+                             "help me out here. I was attacked by some awful odd creature but I killed it. My name\n"
+                             "is John. We will have a better chance to survive together.")
+
+    # User choice
+    mod_slow_text.slow("\n(1): Attack poor helpless man. Put him out of his misery.\n"
+                       "(2): I think I can help you out. Might have something for those wounds. I'm headed to the\n"
+                       "smoke over there towards the north. I welcome your company.\n")
+
+    selection = mod_input_validation.speak_select('Select a response:', 2)
+    if selection == 1:
+        mod_slow_text.super_slow("John: No! No! What are you doing!?\n"
+                                 "\nBefore you can even attack, John pulls out a grenade and pulls the pin and looks\n"
+                                 "at you in shame.\n"
+                                 "John: This world is cold, you're a coward and I hope karma will do you right.\n"
+                                 "The blast is devastating, John's body parts flies in the air, bits and pieces. You\n"
+                                 "get hit with shrapnel as well. You lost 25 HP.")
+        player.hp -= 25
+        mod_slow_text.super_slow("Your HP: " + str(player.hp))
+
+    if selection == 2:
+        mod_slow_text.super_slow("John: Thank you so much. I only need a bit of help to get on my feet. I've seen the\n"
+                                 "smoke as well. That was where I was headed. Hey I happened to have and extra pistol\n"
+                                 "and a nice kevlar jacket. Help yourself.")
+        # Add heavy coat, colt45
+        player.inventory.append(items.KevlarJacket())
+        player.inventory.append(items.Colt45())
+        # Add Hunter
+        player.companions.append(John())
+        mod_sound_effects.inventory_pickup()
+        mod_slow_text.slow('You received a kevlar jacket and a Colt 45 from John. John is a bit banged up, head to\n'
+                           'companion menu to give him a boost. John joins you as a companion!\n')
+        player.print_companions()
     return

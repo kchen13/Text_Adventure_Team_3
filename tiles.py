@@ -200,7 +200,7 @@ class ParkingLot01(MapTile):
 
     @staticmethod
     def modify_player(player):
-        damage = 5 - (player.armor * 0.1)
+        damage = 4 - (player.armor * 0.1)
         player.hp -= damage
         mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
                            .format(damage, player.hp))
@@ -222,7 +222,7 @@ class ParkingLot02(MapTile):
 
     @staticmethod
     def modify_player(player):
-        damage = 7 - (player.armor * 0.1)
+        damage = 6 - (player.armor * 0.1)
         player.hp -= damage
         mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
                            .format(damage, player.hp))
@@ -249,7 +249,7 @@ class MainStreet(MapTile):
 
     @staticmethod
     def modify_player(player):
-        damage = 8 - (player.armor * 0.1)
+        damage = 6 - (player.armor * 0.1)
         player.hp -= damage
         mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
                            .format(damage, player.hp))
@@ -270,7 +270,7 @@ class AbandonedCar01(MapTile):
 
     @staticmethod
     def modify_player(player):
-        damage = 8 - (player.armor * 0.1)
+        damage = 6 - (player.armor * 0.1)
         player.hp -= damage
         mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
                            .format(damage, player.hp))
@@ -355,7 +355,7 @@ class SmokeNarrow01(MapTile):
 
     @staticmethod
     def modify_player(player):
-        damage = 6 - (player.armor * 0.1)
+        damage = 5 - (player.armor * 0.1)
         player.hp -= damage
         mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
                            .format(damage, player.hp))
@@ -379,7 +379,7 @@ class SmallAlley01(MapTile):
 
     @staticmethod
     def modify_player(player):
-        damage = 6 - (player.armor * 0.1)
+        damage = 5 - (player.armor * 0.1)
         player.hp -= damage
         mod_slow_text.slow('It is frigid out here!\nYou lost {} health.\nYour HP is currently: {}\n'
                            .format(damage, player.hp))
@@ -452,7 +452,7 @@ class SnowyPath01(MapTile):
 
     @staticmethod
     def modify_player(player):
-        damage = 8 - (player.armor * 0.1)
+        damage = 7 - (player.armor * 0.1)
         player.hp -= damage
         mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
                            .format(damage, player.hp))
@@ -460,7 +460,7 @@ class SnowyPath01(MapTile):
 
 class AbandonedTruck02(EnemyRoom):
     room_id = 'an abondoned truck'
-    room_inventory = [items.Bandages(), items.Bandages()]
+    room_inventory = [items.Bandages(), items.FirstAid()]
 
     def __init__(self, x, y):
         super().__init__(x, y, enemies.Ghoul())
@@ -956,4 +956,146 @@ class BackAlley02(MapTile):
         damage = 4 - (player.armor * 0.1)
         player.hp -= damage
         mod_slow_text.slow('BRRRRRRR.... Freezing!\nYou lost {} health.\nYour HP is currently: {}\n'
+                           .format(damage, player.hp))
+
+
+class EastExit(MapTile):
+    room_id = 'east exit of the hospital.'
+    room_inventory = [items.Bandages(), items.Axe()]
+
+    def intro_text(self, the_player):
+        coordinates = mod_movement_history.get_coordinates(self)
+        mod_sound_effects.wind()
+        if mod_movement_history.check_history(coordinates):
+            mod_slow_text.super_slow("\nYou are about to exit the hospital. To the north a far smoke shows promise of\n"
+                                     "warmth. You will have to go through the park to go that direction. Is there any\n"
+                                     "last minute supplies around to help you on your way? The blistering cold that\n"
+                                     "sneaking into the building has you shivering.\n")
+        else:
+            mod_slow_text.slow("\nTick tock, your body temperature drops.\n")
+        return """"""
+
+    @staticmethod
+    def modify_player(player):
+        damage = 5 - (player.armor * 0.1)
+        player.hp -= damage
+        mod_slow_text.slow('BRRRRRRR.... Freezing!\nYou lost {} health.\nYour HP is currently: {}\n'
+                           .format(damage, player.hp))
+
+
+class ParkEntrance(MapTile):
+    room_id = 'park entrance.'
+    room_inventory = []
+
+    def intro_text(self, the_player):
+        coordinates = mod_movement_history.get_coordinates(self)
+        mod_sound_effects.wind()
+        if mod_movement_history.check_history(coordinates):
+            mod_slow_text.super_slow("\nThe park is gloomy, none of the beauty of the past remains. Shall you go\n"
+                                     "forward?")
+        else:
+            mod_slow_text.slow("\nTick tock, your body temperature drops.\n")
+        return """"""
+
+    @staticmethod
+    def modify_player(player):
+        damage = 5 - (player.armor * 0.1)
+        player.hp -= damage
+        mod_slow_text.slow('Wind constantly pounds your face and body.\nYou lost {} health.\nYour HP is currently: {}\n'
+                           .format(damage, player.hp))
+
+
+class ParkArea01(MapTile):
+    room_id = 'park area.'
+    room_inventory = []
+
+    def intro_text(self, the_player):
+        coordinates = mod_movement_history.get_coordinates(self)
+        mod_sound_effects.wind()
+        if mod_movement_history.check_history(coordinates):
+            mod_slow_text.super_slow("\nYou remember the days you spent lunch out here thinking about your family.\n"
+                                     "You body wants to feel the warmth sun and that used to shine down on this park.\n"
+                                     "Things will never be the same but you can't just die. You continue walking...\n")
+        else:
+            mod_slow_text.slow("\nThis park is only a memory of what was once a happy place.\n")
+        return """"""
+
+    @staticmethod
+    def modify_player(player):
+        damage = 5 - (player.armor * 0.1)
+        player.hp -= damage
+        mod_slow_text.slow('The cold temperatures have no mercy.\nYou lost {} health.\nYour HP is currently: {}\n'
+                           .format(damage, player.hp))
+
+
+class ParkArea02(EnemyRoom):
+    room_id = 'park area.'
+    room_inventory = [items.HeavyCoat(), items.FirstAid()]
+
+    def __init__(self, x, y):
+        super().__init__(x, y, enemies.Zombie())
+
+    def intro_text(self, the_player):
+        if self.enemy.is_alive():
+            mod_slow_text.super_slow("\nYou're mid way through the park now.... You start to pick up your step.\n")
+            mod_sound_effects.zombie()
+            mod_slow_text.slow("What in the hell is that? A ghoul type creature appears but it is not a ghoul.\n")
+            mod_sound_effects.zombie()
+            mod_slow_text.slow("Seems to not be missing as much skin but it's blueish skin makes it look frozen. All\n"
+                               "remnants of blood are frozen and very blackish. The sound is horrendous, he's like a\n"
+                               "zombie or something. The frozen walking dead!"
+                               "\nZombie HP:" + str(self.enemy.hp))
+        else:
+            mod_slow_text.slow("\nWhat is already dead can just be more dead. Give yourself a pat on the back.\n")
+        return """"""
+
+
+class ParkArea03(MapTile):
+    room_id = 'park area.'
+    room_inventory = []
+
+    def intro_text(self, the_player):
+        coordinates = mod_movement_history.get_coordinates(self)
+        mod_sound_effects.wind()
+        if mod_movement_history.check_history(coordinates):
+            mod_slow_text.super_slow("\nYou're almost out of the park. When you see a man near a tree. He's shivering\n"
+                                     "and bleeding......\n")
+            mod_sound_effects.good_mystery()
+            mod_slow_text.super_slow("\nYou hear a groan, you've seen some crazy things so your are unsure and grip\n"
+                                     "tightly onto your {}.\n\n"
+                                     .format(the_player.best_weapon().name))
+            mod_companion.john_introduction(the_player)
+
+        else:
+            mod_slow_text.slow("\nA nice hot cup of chocolate would be nice right now.\n")
+        return """"""
+
+    @staticmethod
+    def modify_player(player):
+        damage = 6 - (player.armor * 0.1)
+        player.hp -= damage
+        mod_slow_text.slow('Your body temperature is dropping.\nYou lost {} health.\nYour HP is currently: {}\n'
+                           .format(damage, player.hp))
+
+
+class ParkExit(MapTile):
+    room_id = 'park exit area.'
+    room_inventory = []
+
+    def intro_text(self, the_player):
+        coordinates = mod_movement_history.get_coordinates(self)
+        mod_sound_effects.wind()
+        if mod_movement_history.check_history(coordinates):
+            mod_slow_text.super_slow("\nYou're now out of the park. You can see the smoke in the distant north.\n"
+                                     "The main street lies ahead westward, a small alley should take you there.\n"
+                                     "Decisions, decisions.\n")
+        else:
+            mod_slow_text.slow("\nJingle bells, jingle bells, jingle all the way.....\n")
+        return """"""
+
+    @staticmethod
+    def modify_player(player):
+        damage = 4 - (player.armor * 0.1)
+        player.hp -= damage
+        mod_slow_text.slow('The cold temperatures have no mercy.\nYou lost {} health.\nYour HP is currently: {}\n'
                            .format(damage, player.hp))
